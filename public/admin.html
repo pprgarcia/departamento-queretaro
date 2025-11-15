@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin - Leads</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://unpkg.com/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <style>
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+
+  <div class="container mx-auto px-4 py-8 max-w-6xl">
+    <h1 class="text-3xl font-bold text-indigo-800 mb-6 text-center">Panel Admin - Leads</h1>
+    
+    <!-- Login -->
+    <div id="login" class="max-w-md mx-auto bg-white p-8 rounded-xl shadow-lg">
+      <input type="password" id="pass" placeholder="Contraseña" class="w-full p-3 border rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+      <button onclick="login()" class="w-full bg-indigo-600 text-white py-3 rounded-lg font-semibold hover:bg-indigo-700 transition">Entrar</button>
+    </div>
+
+    <!-- Panel -->
+    <div id="panel" class="hidden mt-8">
+      <div class="bg-white rounded-xl shadow-lg p-6 overflow-x-auto">
+        <div class="flex flex-col sm:flex-row justify-between items-center mb-4 gap-4">
+          <h2 class="text-xl font-semibold text-gray-800">Leads Recibidos</h2>
+          <button onclick="exportarExcel()" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 flex items-center transition">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293. F707V19a2 2 0 01-2 2z"/>
+            </svg>
+            Exportar a Excel
+          </button>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="min-w-full table-auto" id="tabla">
+            <thead class="bg-indigo-600 text-white">
+              <tr>
+                <th class="px-4 py-3 text-left">Nombre</th>
+                <th class="px-4 py-3 text-left">Teléfono</th>
+                <th class="px-4 py-3 text-left">Email</th>
+                <th class="px-4 py-3 text-left">Comentario</th>
+                <th class="px-4 py-3 text-left">Horario</th>
+                <th class="px-4 py-3 text-left">Fecha</th>
+              </tr>
+            </thead>
+            <tbody class="text-gray-700"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const contraseña = "admin2025"; // ¡CÁMBIALA POR UNA SEGURA!
+
+    function login() {
+      const input = document.getElementById('pass').value;
+      if (input === contraseña) {
+        document.getElementById('login').classList.add('hidden');
+        document.getElementById('panel').classList.remove('hidden');
+        cargarLeads();
+      } else {
+        alert("Contraseña incorrecta");
+      }
+    }
+
+    async function cargarLeads() {
+      try {
+        const res = await axios.get('/api/contactos.php');
+        const tbody = document.querySelector('#tabla tbody');
+        tbody.innerHTML = '';
+        if (res.data.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="6" class="text-center py-4 text-gray-500">No hay leads aún</td></tr>';
+          return;
+        }
+        res.data.forEach(row => {
+          const tr = document.createElement('tr');
+          tr.className = 'border-b hover:bg-gray-50';
+          tr.innerHTML = `
+            <td class="px-4 py-3">${row.nombre || '-'}</td>
+            <td class="px-4 py-3">${row.telefono || '-'}</td>
+            <td class="px-4 py-3">${row.email || '-'}</td>
+            <td class="px-4 py-3 max-w-xs truncate">${row.comentario || '-'}</td>
+            <td class="px-4 py-3">${row.horario || '-'}</td>
+            <td class="px-4 py-3">${new Date(row.fecha).toLocaleString('es-MX')}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+      } catch (error) {
+        console.error(error);
+        alert("Error al cargar leads. Verifica la API.");
+      }
+    }
+
+    function exportarExcel() {
+      const tabla = document.getElementById('tabla');
+      const wb = XLSX.utils.table_to_book(tabla, { sheet: "Leads" });
+      const fecha = new Date().toISOString().slice(0,10);
+      XLSX.writeFile(wb, `leads_departamento_${fecha}.xlsx`);
+    }
+
+    // Enter para login
+    document.getElementById('pass')?.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') login();
+    });
+  </script>
+</body>
+</html>
