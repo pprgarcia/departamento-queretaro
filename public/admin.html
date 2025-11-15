@@ -68,31 +68,42 @@
     }
 
     async function cargarLeads() {
-      try {
-        const res = await axios.get('/api/contactos.php');
-        const tbody = document.querySelector('#tabla tbody');
-        tbody.innerHTML = '';
-        if (res.data.length === 0) {
-          tbody.innerHTML = '<tr><td colspan="6" class="text-center py-4 text-gray-500">No hay leads aún</td></tr>';
-          return;
+        try {
+            const SUPABASE_URL = 'https://asezwpitjpsoimvfuwse.supabase.co';  // ← TU URL AQUÍ
+            const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFzZXp3cGl0anBzb2ltdmZ1d3NlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMyMTg2MjIsImV4cCI6MjA3ODc5NDYyMn0.uQ_7fUy_cswe_OzmK1k_--BIO_55Bmy_6McqtgGK0SI';                    // ← TU ANON KEY AQUÍ
+
+            const res = await axios.get(`${SUPABASE_URL}/rest/v1/leads?select=*&order=fecha_envio.desc`, {
+            headers: {
+                'apikey': SUPABASE_KEY,
+                'Authorization': `Bearer ${SUPABASE_KEY}`
+            }
+            });
+
+            const tbody = document.querySelector('#tabla tbody');
+            tbody.innerHTML = '';
+            
+            if (res.data.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="6" class="text-center py-4 text-gray-500">No hay leads aún</td></tr>';
+            return;
+            }
+
+            res.data.forEach(row => {
+            const tr = document.createElement('tr');
+            tr.className = 'border-b hover:bg-gray-50';
+            tr.innerHTML = `
+                <td class="px-4 py-3">${row.nombre || '-'}</td>
+                <td class="px-4 py-3">${row.telefono || '-'}</td>
+                <td class="px-4 py-3">${row.email || '-'}</td>
+                <td class="px-4 py-3 max-w-xs truncate">${row.comentario || '-'}</td>
+                <td class="px-4 py-3">${row.horario_preferido || '-'}</td>
+                <td class="px-4 py-3">${new Date(row.fecha_envio).toLocaleString('es-MX')}</td>
+            `;
+            tbody.appendChild(tr);
+            });
+        } catch (error) {
+            console.error(error);
+            alert("Error al cargar leads. Verifica URL y key.");
         }
-        res.data.forEach(row => {
-          const tr = document.createElement('tr');
-          tr.className = 'border-b hover:bg-gray-50';
-          tr.innerHTML = `
-            <td class="px-4 py-3">${row.nombre || '-'}</td>
-            <td class="px-4 py-3">${row.telefono || '-'}</td>
-            <td class="px-4 py-3">${row.email || '-'}</td>
-            <td class="px-4 py-3 max-w-xs truncate">${row.comentario || '-'}</td>
-            <td class="px-4 py-3">${row.horario || '-'}</td>
-            <td class="px-4 py-3">${new Date(row.fecha).toLocaleString('es-MX')}</td>
-          `;
-          tbody.appendChild(tr);
-        });
-      } catch (error) {
-        console.error(error);
-        alert("Error al cargar leads. Verifica la API.");
-      }
     }
 
     function exportarExcel() {
