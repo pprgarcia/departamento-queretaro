@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Galería - Departamento en Venta | Querétaro</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  
+
+  <!-- SEO oculto -->
+  <div hidden>
+    galería departamento en venta Querétaro, fotos interiores, cocina moderna, recámaras amplias, baño de lujo, cerca Tec de Monterrey, inversión inmobiliaria
+  </div>
+</head>
+<body class="bg-gray-50">
+
+  <!-- Navbar responsiva -->
+
+    <nav class="bg-white shadow-lg sticky top-0 z-50 w-full">
+      <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+        <!-- Título -->
+        <h1 class="text-2xl md:text-3xl font-bold text-indigo-700 tracking-tight">
+          ¡Departamento en Venta en Querétaro!
+        </h1>
+
+        <!-- Menú Desktop -->
+        <div class="hidden md:flex items-center space-x-8">
+          <a href="/" class="text-lg font-semibold text-gray-700 hover:text-indigo-600 hover:underline underline-offset-4 transition">
+            Inicio
+          </a>
+          <a href="/galeria.html" class="text-lg font-semibold text-gray-700 hover:text-indigo-600 hover:underline underline-offset-4 transition">
+            Galería
+          </a>
+        </div>
+
+        <!-- Botón Hamburguesa (móvil) -->
+        <button id="menuBtn" class="block md:hidden w-12 h-12 bg-indigo-100 rounded-full hover:bg-indigo-200 transition shadow-md flex items-center justify-center z-50">
+          <svg class="w-8 h-8 text-indigo-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Menú Móvil (FUERA del nav) -->
+    <div id="menuMobile" class="hidden bg-white border-t border-gray-200 shadow-lg w-full transition-all duration-300 ease-in-out" style="max-height: 0; overflow: hidden;">
+      <div class="container mx-auto px-4">
+        <a href="/" class="block py-4 text-lg font-semibold text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition border-b border-gray-100">
+          Inicio
+        </a>
+        <a href="/galeria.html" class="block py-4 text-lg font-semibold text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition border-b border-gray-100">
+          Galería
+        </a>
+      </div>
+      <style>
+        #menuMobile {
+          max-height: 0;
+          overflow: hidden;
+          transition: max-height 0.3s ease;
+        }
+      </style>
+    </div>
+
+  <!-- Galería de fotos -->
+  
+  <main class="container mx-auto px-4 py-8">
+    <br>
+    <h2 class="text-3xl font-bold text-center mb-10 text-indigo-800">Galería del Departamento</h2>
+    <div class="prose prose-lg mx-auto max-w-4xl text-gray-700 leading-relaxed">
+      <!-- Ubicación estratégica - Lista ordenada con iconos -->
+      <section class="mb-12 bg-gradient-to-r from-indigo-50 to-purple-50 p-6 md:p-8 rounded-xl shadow-md">
+        <br>
+            <p class="italic text-indigo-600 font-medium">
+                <span>Perfecto para inversionistas, parejas jóvenes, o estudiantes que buscan estilo, seguridad y ubicación inmejorable.</span>
+            </p>
+            <br>
+            <span>Date la oportunidad de vivir de un departamento seguro, bien ubicado, en un fraccionamiento bien reglamentado, 
+                con una Asociación de Colonos fuerte y en control, comunidad participativa, sin problemas de morosos con la cuota,  
+                y mantenimiento preventivo periódico de áreas comunes.</span>
+            <br>
+            <br>
+            <span><strong>Es tu oportunidad de comenzar tu vida en Querétaro, considerada como una de las mejores ciudades en el país por su calidad de vida. ¡Reconocida Internacionalmente!.</strong></span>
+
+    </div>
+    <br>
+    <div>
+        <h3 class="text-2xl font-bold text-center mb-6 text-indigo-800">
+            ¡Haz clic en las fotos para ampliarlas!
+        </h3>
+    </div>
+ <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+  <!-- FOTO 1 -->
+    <div id="foto1" class="group relative rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 h-64 bg-gray-100 cursor-pointer">
+    <img 
+        src="/fotos/foto1.jpeg" 
+        alt="Foto desde la pared de entrada al patio hacia puerta de entrada al fondo" 
+        class="absolute inset-0 w-full h-full object-contain p-3 transition-transform duration-300 group-hover:scale-110 gallery-img"
+        onload="this.style.display='block';"
+        onerror="this.style.display='none';"
+    >
+    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+        <p class="text-white font-medium text-sm">Foto desde la pared de entrada al patio hacia puerta de entrada al fondo</p>
+    </div>
+    </div>
+
+  <!-- FOTO 2 -->
+    <div id="foto1" class="group relative rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 h-64 bg-gray-100 cursor-pointer">
+    <img 
+        src="/fotos/foto2.jpeg" 
+        alt="Foto desde la puerta hacia recámara con baño" 
+        class="absolute inset-0 w-full h-full object-contain p-3 transition-transform duration-300 group-hover:scale-110 gallery-img"
+        onload="this.style.display='block';"
+        onerror="this.style.display='none';"
+    >
+    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+        <p class="text-blue-800 font-medium text-sm">Foto desde la puerta hacia recámara con baño</p>
+    </div>
+    </div>
+
+
+  <!-- FOTO 3 -->
+    <div id="foto1" class="group relative rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 h-64 bg-gray-100 cursor-pointer">
+    <img 
+        src="/fotos/foto3.jpeg" 
+        alt="Foto desde pared de entrada" 
+        class="absolute inset-0 w-full h-full object-contain p-3 transition-transform duration-300 group-hover:scale-110 gallery-img"
+        onload="this.style.display='block';"
+        onerror="this.style.display='none';"
+    >
+    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+        <p class="text-blue-800 font-medium text-sm">Foto desde pared de entrada</p>
+    </div>
+    </div>
+
+
+  <!-- FOTO 4 -->
+    <div id="foto1" class="group relative rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 h-64 bg-gray-100 cursor-pointer">
+    <img 
+        src="/fotos/foto4.jpeg" 
+        alt="Foto cocineta" 
+        class="absolute inset-0 w-full h-full object-contain p-3 transition-transform duration-300 group-hover:scale-110 gallery-img"
+        onload="this.style.display='block';"
+        onerror="this.style.display='none';"
+    >
+    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+        <p class="text-blue-900 font-medium text-sm">Foto cocineta</p>
+    </div>
+    </div>
+
+  <!-- FOTO 5 -->
+    <div id="foto1" class="group relative rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 h-64 bg-gray-100 cursor-pointer">
+    <img 
+        src="/fotos/foto5.jpeg" 
+        alt="Foto área de servicios desde el patio" 
+        class="absolute inset-0 w-full h-full object-contain p-3 transition-transform duration-300 group-hover:scale-110 gallery-img"
+        onload="this.style.display='block';"
+        onerror="this.style.display='none';"
+    >
+    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+        <p class="text-white font-medium text-sm">Foto área de servicios desde el patio</p>
+    </div>
+    </div>
+
+
+  <!-- FOTO 6 -->
+    <div id="foto1" class="group relative rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 h-64 bg-gray-100 cursor-pointer">
+    <img 
+        src="/fotos/foto6.jpeg" 
+        alt="Clóset cerrado, tres puertas" 
+        class="absolute inset-0 w-full h-full object-contain p-3 transition-transform duration-300 group-hover:scale-110 gallery-img"
+        onload="this.style.display='block';"
+        onerror="this.style.display='none';"
+    >
+    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+        <p class="text-blue-900 font-medium text-sm">Clóset cerrado, tres puertas</p>
+    </div>
+    </div>
+
+
+  <!-- FOTO 7 -->
+    <div id="foto1" class="group relative rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 h-64 bg-gray-100 cursor-pointer">
+    <img 
+        src="/fotos/foto7.jpeg" 
+        alt="Parte izquierda del clóset" 
+        class="absolute inset-0 w-full h-full object-contain p-3 transition-transform duration-300 group-hover:scale-110 gallery-img"
+        onload="this.style.display='block';"
+        onerror="this.style.display='none';"
+    >
+    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+        <p class="text-blue-800 font-medium text-sm">Parte izquierda del clóset</p>
+    </div>
+    </div>
+
+
+  <!-- FOTO 8 -->
+    <div id="foto1" class="group relative rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 h-64 bg-gray-100 cursor-pointer">
+    <img 
+        src="/fotos/foto8.jpeg" 
+        alt="Parte derecha del clóset" 
+        class="absolute inset-0 w-full h-full object-contain p-3 transition-transform duration-300 group-hover:scale-110 gallery-img"
+        onload="this.style.display='block';"
+        onerror="this.style.display='none';"
+    >
+    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+        <p class="text-blue-800 font-medium text-sm">Parte derecha del clóset</p>
+    </div>
+    </div>
+
+
+  <!-- FOTO 9 -->
+    <div id="foto1" class="group relative rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 h-64 bg-gray-100 cursor-pointer">
+    <img 
+        src="/fotos/foto9.jpeg" 
+        alt="Área común de alberca" 
+        class="absolute inset-0 w-full h-full object-contain p-3 transition-transform duration-300 group-hover:scale-110 gallery-img"
+        onload="this.style.display='block';"
+        onerror="this.style.display='none';"
+    >
+      <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+          <p class="text-black font-medium text-sm">Área común de alberca</p>
+      </div>
+    </div>
+
+
+  <!-- FOTO 10 -->
+    <div id="foto1" class="group relative rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 h-64 bg-gray-100 cursor-pointer">
+    <img 
+        src="/fotos/foto10.jpeg" 
+        alt="Jardinera rodeando edificio central" 
+        class="absolute inset-0 w-full h-full object-contain p-3 transition-transform duration-300 group-hover:scale-110 gallery-img"
+        onload="this.style.display='block';"
+        onerror="this.style.display='none';"
+    >
+      <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+          <p class="text-black font-medium text-sm">Jardinera rodeando edificio central</p>
+      </div>
+    </div>
+
+
+  <!-- FOTO 11 -->
+    <div id="foto1" class="group relative rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 h-64 bg-gray-100 cursor-pointer">
+    <img 
+        src="/fotos/foto11.jpeg" 
+        alt="Estacionamiento para visitas" 
+        class="absolute inset-0 w-full h-full object-contain p-3 transition-transform duration-300 group-hover:scale-110 gallery-img"
+        onload="this.style.display='block';"
+        onerror="this.style.display='none';"
+    >
+      <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+          <p class="text-black font-medium text-sm">Estacionamiento para visitas</p>
+      </div>
+    </div>
+
+
+  <!-- FOTO 12 -->
+    <div id="foto1" class="group relative rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 h-64 bg-gray-100 cursor-pointer">
+    <img 
+        src="/fotos/foto12.jpeg" 
+        alt="Bloque posterior donde esta el departamento" 
+        class="absolute inset-0 w-full h-full object-contain p-3 transition-transform duration-300 group-hover:scale-110 gallery-img"
+        onload="this.style.display='block';"
+        onerror="this.style.display='none';"
+    >
+      <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+          <p class="text-white font-medium text-sm">......Bloque posterior donde esta el departamento</p>
+      </div>
+    </div>
+
+      <!-- FOTO 13 -->
+    <div id="foto1" class="group relative rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 h-64 bg-gray-100 cursor-pointer">
+    <img 
+        src="/fotos/foto13.jpeg" 
+        alt="Salón de fiestas y reuniones" 
+        class="absolute inset-0 w-full h-full object-contain p-3 transition-transform duration-300 group-hover:scale-110 gallery-img"
+        onload="this.style.display='block';"
+        onerror="this.style.display='none';"
+    >
+      <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+          <p class="text-white font-medium text-sm">......Salón de fiestas y reuniones</p>
+      </div>
+    </div>
+
+          <!-- FOTO 14 -->
+    <div id="foto1" class="group relative rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 h-64 bg-gray-100 cursor-pointer">
+    <img 
+        src="/fotos/foto14.jpeg" 
+        alt="Cancelería de aluminio y vidrio seminuevos" 
+        class="absolute inset-0 w-full h-full object-contain p-3 transition-transform duration-300 group-hover:scale-110 gallery-img"
+        onload="this.style.display='block';"
+        onerror="this.style.display='none';"
+    >
+      <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+          <p class="text-blue-900 font-medium text-sm">Cancelería de aluminio y vidrio seminuevos</p>
+      </div>
+    </div>
+
+    <!-- FOTO 15 -->
+    <div id="foto1" class="group relative rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 h-64 bg-gray-100 cursor-pointer">
+    <img 
+        src="/fotos/foto15.png" 
+        alt="Puerta departamento 30" 
+        class="absolute inset-0 w-full h-full object-contain p-3 transition-transform duration-300 group-hover:scale-110 gallery-img"
+        onload="this.style.display='block';"
+        onerror="this.style.display='none';"
+    >
+      <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+          <p class="text-blue-900 font-medium text-sm">Puerta departamento 30</p>
+      </div>
+    </div>
+
+
+    <!-- FOTO 16 -->
+    <div id="foto1" class="group relative rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 h-64 bg-gray-100 cursor-pointer">
+    <img 
+        src="/fotos/foto16.jpeg" 
+        alt="Caseta de vigilancia" 
+        class="absolute inset-0 w-full h-full object-contain p-3 transition-transform duration-300 group-hover:scale-110 gallery-img"
+        onload="this.style.display='block';"
+        onerror="this.style.display='none';"
+    >
+      <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+          <p class="text-white font-medium text-sm">....Caseta de vigilancia</p>
+      </div>
+    </div>
+
+    
+    <!-- FOTO 17 -->
+    <div id="foto1" class="group relative rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 h-64 bg-gray-100 cursor-pointer">
+    <img 
+        src="/fotos/foto17.jpeg" 
+        alt="Vista calle" 
+        class="absolute inset-0 w-full h-full object-contain p-3 transition-transform duration-300 group-hover:scale-110 gallery-img"
+        onload="this.style.display='block';"
+        onerror="this.style.display='none';"
+    >
+      <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+          <p class="text-white font-medium text-sm">......Vista calle</p>
+      </div>
+    </div>
+
+    <!-- Botón volver -->
+    <div class="text-center mt-12">
+      <a href="/" class="inline-block bg-indigo-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-indigo-700 transition">
+        ← Volver al Inicio
+      </a>
+    </div>
+  </main>
+
+   <!-- LIGHTBOX MODAL - 30x30 cm (GRANDE Y CLARO) -->
+  <div id="lightbox" class="fixed inset-0 bg-black/90 hidden flex items-center justify-center z-50 p-4 md:p-8" onclick="cerrarLightbox()">
+    <div class="relative w-full max-w-4xl h-full max-h-screen bg-white rounded-2xl shadow-2xl overflow-hidden flex items-center justify-center" onclick="event.stopPropagation()">
+      <!-- BOTÓN CERRAR -->
+      <button class="absolute top-4 right-4 bg-white/90 text-gray-800 w-12 h-12 rounded-full flex items-center justify-center text-3xl hover:bg-white shadow-lg z-10 transition" onclick="cerrarLightbox()">&times;</button>
+      
+      <!-- IMAGEN GRANDE -->
+      <img id="lightbox-img" src="" alt="Foto ampliada" class="max-w-full max-h-full object-contain p-6 md:p-8">
+      
+      <!-- FLECHAS -->
+      <button class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 text-gray-800 w-14 h-14 rounded-full flex items-center justify-center text-4xl hover:bg-white shadow-lg transition" onclick="anteriorFoto()">&lsaquo;</button>
+      <button class="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 text-gray-800 w-14 h-14 rounded-full flex items-center justify-center text-4xl hover:bg-white shadow-lg transition" onclick="siguienteFoto()">&rsaquo;</button>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script>
+
+
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    let fotos = [];
+    let indiceActual = 0;
+
+    function abrirLightbox(src, index) {
+
+      lightbox.classList.remove('hidden');
+      lightboxImg.src = src;
+      indiceActual = index;
+      document.body.style.overflow = 'hidden';
+    }
+
+    function cerrarLightbox() {
+      lightbox.classList.add('hidden');
+      document.body.style.overflow = 'auto';
+      lightboxImg.src = '';
+    }
+
+    function siguienteFoto() {
+      indiceActual = (indiceActual + 1) % fotos.length;
+      lightboxImg.src = fotos[indiceActual].querySelector('img').src;
+    }
+
+    function anteriorFoto() {
+      indiceActual = (indiceActual - 1 + fotos.length) % fotos.length;
+      lightboxImg.src = fotos[indiceActual].querySelector('img').src;
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (!lightbox.classList.contains('hidden')) {
+        if (e.key === 'ArrowRight') siguienteFoto();
+        if (e.key === 'ArrowLeft') anteriorFoto();
+        if (e.key === 'Escape') cerrarLightbox();
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      fotos = Array.from(document.querySelectorAll('[id^="foto"]'));
+
+
+      fotos.forEach((contenedor, i) => {
+        const img = contenedor.querySelector('img');
+        if (img) {
+          contenedor.onclick = (e) => {
+            e.stopPropagation();
+            abrirLightbox(img.src, i);
+          };
+        }
+      });
+    });
+
+    // === NAVBAR MÓVIL ===
+    const menuBtn = document.getElementById('menuBtn');
+    const menuMobile = document.getElementById('menuMobile');
+
+    if (menuBtn && menuMobile) {
+      menuBtn.addEventListener('click', () => {
+        const isHidden = menuMobile.classList.contains('hidden');
+        menuMobile.classList.toggle('hidden');
+        
+        if (isHidden) {
+          menuMobile.style.maxHeight = menuMobile.scrollHeight + 'px';
+        } else {
+          menuMobile.style.maxHeight = '0';
+        }
+      });
+
+      // Cerrar al hacer clic en enlace
+      menuMobile.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          menuMobile.classList.add('hidden');
+          menuMobile.style.maxHeight = '0';
+        });
+      });
+    }
+  </script>
+</body>
+</html>
