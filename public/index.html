@@ -584,16 +584,16 @@
 
   <!-- === SCRIPT AL FINAL DEL BODY === -->
   <script>
-    console.log('CARGANDO FORMULARIO SUPABASE...');
+
 
     // ← CAMBIA 'TU_ID_REAL_DE_FORM' POR EL ID REAL DE TU <form>
     const form = document.getElementById('formContacto');
 
     if (form) {
-      console.log('FORMULARIO ENCONTRADO');
+
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
-        console.log('ENVIANDO A SUPABASE...');
+     
 
         const SUPABASE_URL = 'https://asezwpitjpsoimvfuwse.supabase.co';
         const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFzZXp3cGl0anBzb2ltdmZ1d3NlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMyMTg2MjIsImV4cCI6MjA3ODc5NDYyMn0.uQ_7fUy_cswe_OzmK1k_--BIO_55Bmy_6McqtgGK0SI';  // ← TU KEY
@@ -628,7 +628,7 @@
           if (respuesta.ok) {
             alert('¡Gracias! Te contactaremos pronto.');
             form.reset();
-            console.log('GUARDADO:', data);
+
           } else {
             const error = await respuesta.text();
             console.error('ERROR SUPABASE:', error);
