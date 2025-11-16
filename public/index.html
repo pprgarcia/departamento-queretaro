@@ -569,63 +569,80 @@
       });
     </script>
   </script>
+    <!-- TU FORMULARIO (EL QUE YA TIENES) -->
+  <!-- EJEMPLO: -->
+  <form id="formContacto">
+    <input type="text" name="nombre" required>
+    <input type="tel" name="telefono" required>
+    <input type="email" name="email" required>
+    <textarea name="comentario"></textarea>
+    <select name="horario">
+      <option value="mañana">Mañana</option>
+    </select>
+    <button type="submit">Enviar</button>
+  </form>
+
+  <!-- === SCRIPT AL FINAL DEL BODY === -->
   <script>
-  console.log('CARGANDO FORMULARIO SUPABASE...');
+    console.log('CARGANDO FORMULARIO SUPABASE...');
 
-  if (form) {
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      console.log('ENVIANDO A SUPABASE...');
+    // ← CAMBIA 'TU_ID_REAL_DE_FORM' POR EL ID REAL DE TU <form>
+    const form = document.getElementById('TU_ID_REAL_DE_FORM');
 
-      const SUPABASE_URL = 'https://https://asezwpitjpsoimvfuwse.supabase.co';
-      const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFzZXp3cGl0anBzb2ltdmZ1d3NlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMyMTg2MjIsImV4cCI6MjA3ODc5NDYyMn0.uQ_7fUy_cswe_OzmK1k_--BIO_55Bmy_6McqtgGK0SI';  // ← TU KEY
+    if (form) {
+      console.log('FORMULARIO ENCONTRADO');
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        console.log('ENVIANDO A SUPABASE...');
 
-      // === USA name EN VEZ DE id ===
-      const formData = new FormData(form);
-      const data = {
-        nombre: formData.get('nombre')?.trim() || '',
-        telefono: formData.get('telefono')?.trim() || '',
-        email: formData.get('email')?.trim() || '',
-        comentario: formData.get('comentario')?.trim() || '',
-        horario_preferido: formData.get('horario') || '',
-        fecha_envio: new Date().toISOString()
-      };
+        const SUPABASE_URL = 'https://asezwpitjpsoimvfuwse.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFzZXp3cGl0anBzb2ltdmZ1d3NlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMyMTg2MjIsImV4cCI6MjA3ODc5NDYyMn0.uQ_7fUy_cswe_OzmK1k_--BIO_55Bmy_6McqtgGK0SI';  // ← TU KEY
 
-      if (!data.nombre || !data.telefono || !data.email) {
-        alert('Llena nombre, teléfono y email.');
-        return;
-      }
+        const formData = new FormData(form);
+        const data = {
+          nombre: formData.get('nombre')?.trim() || '',
+          telefono: formData.get('telefono')?.trim() || '',
+          email: formData.get('email')?.trim() || '',
+          comentario: formData.get('comentario')?.trim() || '',
+          horario_preferido: formData.get('horario') || '',
+          fecha_envio: new Date().toISOString()
+        };
 
-      try {
-        const respuesta = await fetch(`${SUPABASE_URL}/rest/v1/leads`, {
-          method: 'POST',
-          headers: {
-            'apikey': SUPABASE_KEY,
-            'Authorization': `Bearer ${SUPABASE_KEY}`,
-            'Content-Type': 'application/json',
-            'Prefer': 'return=minimal'
-          },
-          body: JSON.stringify(data)
-        });
-
-        if (respuesta.ok) {
-          alert('¡Gracias! Te contactaremos pronto.');
-          form.reset();
-          console.log('GUARDADO:', data);
-        } else {
-          const error = await respuesta.text();
-          console.error('ERROR SUPABASE:', error);
-          alert('Error al enviar.');
+        if (!data.nombre || !data.telefono || !data.email) {
+          alert('Llena nombre, teléfono y email.');
+          return;
         }
-      } catch (error) {
-        console.error('ERROR DE RED:', error);
-        alert('Error de conexión.');
-      }
-    });
-  } else {
-    console.error('NO SE ENCONTRÓ #contactoForm');
-  }
-</script>
+
+        try {
+          const respuesta = await fetch(`${SUPABASE_URL}/rest/v1/leads`, {
+            method: 'POST',
+            headers: {
+              'apikey': SUPABASE_KEY,
+              'Authorization': `Bearer ${SUPABASE_KEY}`,
+              'Content-Type': 'application/json',
+              'Prefer': 'return=minimal'
+            },
+            body: JSON.stringify(data)
+          });
+
+          if (respuesta.ok) {
+            alert('¡Gracias! Te contactaremos pronto.');
+            form.reset();
+            console.log('GUARDADO:', data);
+          } else {
+            const error = await respuesta.text();
+            console.error('ERROR SUPABASE:', error);
+            alert('Error al enviar.');
+          }
+        } catch (error) {
+          console.error('ERROR DE RED:', error);
+          alert('Error de conexión.');
+        }
+      });
+    } else {
+      console.error('NO SE ENCONTRÓ EL FORMULARIO - ID:', 'TU_ID_REAL_DE_FORM');
+    }
+  </script>
 </body>
 </html>
       
