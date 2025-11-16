@@ -450,6 +450,9 @@
         }
       });
     }
+      else {
+      console.error('NO SE ENCONTRÓ #contactoForm');
+    }
 
 </script>
     <script>
@@ -616,21 +619,7 @@
         }
       });
     </script>
-        <script>
-      console.log('FORMULARIO CARGADO - PRUEBA');
-      if (form) {
-        console.log('FORMULARIO ENCONTRADO');
-        form.addEventListener('submit', (e) => {
-          e.preventDefault();
-          console.log('FORMULARIO ENVIADO - PRUEBA');
-          alert('FORMULARIO FUNCIONA!');
-        });
-      } else {
-        console.error('FORMULARIO NO ENCONTRADO - ID contactoForm');
-      }
-    </script>
-  </div>
-
+  </script>
 </body>
 </html>
       
