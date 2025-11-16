@@ -405,17 +405,15 @@
 
   <script>
   // Enviar formulario
-    // === ENVÍO DE FORMULARIO ===
+  // === ENVÍO DE FORMULARIO ===
     const form = document.getElementById('contactoForm');
     if (form) {
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        // === TU SUPABASE (CÁMBIALO CON TUS DATOS REALES) ===
-        const SUPABASE_URL = 'https://asezwpitjpsoimvfuwse.supabase.co';  // ← TU URL
-        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFzZXp3cGl0anBzb2ltdmZ1d3NlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMyMTg2MjIsImV4cCI6MjA3ODc5NDYyMn0.uQ_7fUy_cswe_OzmK1k_--BIO_55Bmy_6McqtgGK0SI';  // ← TU ANON KEY COMPLETA
+        const SUPABASE_URL = 'https://asezwpitjpsoimvfuwse.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFzZXp3cGl0anBzb2ltdmZ1d3NlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMyMTg2MjIsImV4cCI6MjA3ODc5NDYyMn0.uQ_7fUy_cswe_OzmK1k_--BIO_55Bmy_6McqtgGK0SI';  // ← PEGA TU KEY
 
-        // === DATOS DEL FORMULARIO ===
         const data = {
           nombre: document.getElementById('nombre').value.trim(),
           telefono: document.getElementById('telefono').value.trim(),
@@ -424,12 +422,6 @@
           horario_preferido: document.getElementById('horario').value,
           fecha_envio: new Date().toISOString()
         };
-
-        // === VALIDACIÓN BÁSICA ===
-        if (!data.nombre || !data.telefono || !data.email) {
-          alert('Por favor llena nombre, teléfono y email.');
-          return;
-        }
 
         try {
           const respuesta = await fetch(`${SUPABASE_URL}/rest/v1/leads`, {
@@ -446,13 +438,14 @@
           if (respuesta.ok) {
             alert('¡Gracias! Te contactaremos pronto.');
             form.reset();
+            console.log('Lead guardado:', data); // ← VERIFICA
           } else {
             const error = await respuesta.text();
             console.error('Error Supabase:', error);
-            throw new Error('Error al guardar. Intenta de nuevo.');
+            alert('Error al enviar. Revisa consola.');
           }
         } catch (error) {
-          console.error('Error de conexión:', error);
+          console.error('Error de red:', error);
           alert('Error de conexión. Intenta de nuevo.');
         }
       });
