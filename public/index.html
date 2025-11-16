@@ -617,6 +617,20 @@
       });
     </script>
   </div>
+    <script>
+      console.log('FORMULARIO CARGADO - PRUEBA');
+      const form = document.getElementById('contactoForm');
+      if (form) {
+        console.log('FORMULARIO ENCONTRADO');
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          console.log('FORMULARIO ENVIADO - PRUEBA');
+          alert('FORMULARIO FUNCIONA!');
+        });
+      } else {
+        console.error('FORMULARIO NO ENCONTRADO - ID contactoForm');
+      }
+    </script>
 </body>
 </html>
       
