@@ -27,12 +27,20 @@
       <div class="bg-white rounded-xl shadow-lg p-6 overflow-x-auto">
         <div class="flex flex-col sm:flex-row justify-between items-center mb-4 gap-4">
           <h2 class="text-xl font-semibold text-gray-800">Leads Recibidos</h2>
+          <div class="flex gap-3">
             <button onclick="exportarExcel()" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 flex items-center transition">
-            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-            </svg>
-            Exportar a Excel
+              </svg>
+              Exportar a Excel
             </button>
+            <button onclick="borrarTodos()" class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 flex items-center transition">
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+              </svg>
+              Borrar todos
+            </button>
+          </div>
         </div>
         <div class="overflow-x-auto">
           <table class="min-w-full table-auto" id="tabla">
@@ -54,7 +62,7 @@
   </div>
 
   <script>
-    const contraseña = "MiDeptoSecure2025!"; // ¡CÁMBIALA POR UNA SEGURA!
+    const contraseña = "MiDeptoQueretaro2025!Secure"; // ¡CÁMBIALA YA!
 
     function login() {
       const input = document.getElementById('pass').value;
@@ -68,42 +76,42 @@
     }
 
     async function cargarLeads() {
-        try {
-            const SUPABASE_URL = 'https://asezwpitjpsoimvfuwse.supabase.co';  // ← TU URL REAL
-            const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFzZXp3cGl0anBzb2ltdmZ1d3NlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMyMTg2MjIsImV4cCI6MjA3ODc5NDYyMn0.uQ_7fUy_cswe_OzmK1k_--BIO_55Bmy_6McqtgGK0SI';  // ← TU KEY REAL
-            
-            const res = await axios.get(`${SUPABASE_URL}/rest/v1/leads?select=*&order=fecha_envio.desc`, {
-            headers: {
-                'apikey': SUPABASE_KEY,
-                'Authorization': `Bearer ${SUPABASE_KEY}`
-            }
-            });
+      try {
+        const SUPABASE_URL = 'https://asezwpitjpsoimvfuwse.supabase.co';
+        const SUPABASE_KEY = 'TU_ANON_KEY_COMPLETA_AQUÍ';  // ← TU KEY
 
-            const tbody = document.querySelector('#tabla tbody');
-            tbody.innerHTML = '';
-            
-            if (res.data.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="6" class="text-center py-4 text-gray-500">No hay leads aún</td></tr>';
-            return;
-            }
+        const res = await axios.get(`${SUPABASE_URL}/rest/v1/leads?select=*&order=fecha_envio.desc`, {
+          headers: {
+            'apikey': SUPABASE_KEY,
+            'Authorization': `Bearer ${SUPABASE_KEY}`
+          }
+        });
 
-            res.data.forEach(row => {
-            const tr = document.createElement('tr');
-            tr.className = 'border-b hover:bg-gray-50';
-            tr.innerHTML = `
-                <td class="px-4 py-3">${row.nombre || '-'}</td>
-                <td class="px-4 py-3">${row.telefono || '-'}</td>
-                <td class="px-4 py-3">${row.email || '-'}</td>
-                <td class="px-4 py-3 max-w-xs truncate">${row.comentario || '-'}</td>
-                <td class="px-4 py-3">${row.horario_preferido || '-'}</td>
-                <td class="px-4 py-3">${new Date(row.fecha_envio).toLocaleString('es-MX')}</td>
-            `;
-            tbody.appendChild(tr);
-            });
-        } catch (error) {
-            console.error(error);
-            alert("Error al cargar leads. Verifica URL y key.");
+        const tbody = document.querySelector('#tabla tbody');
+        tbody.innerHTML = '';
+        
+        if (res.data.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="6" class="text-center py-4 text-gray-500">No hay leads aún</td></tr>';
+          return;
         }
+
+        res.data.forEach(row => {
+          const tr = document.createElement('tr');
+          tr.className = 'border-b hover:bg-gray-50';
+          tr.innerHTML = `
+            <td class="px-4 py-3">${row.nombre || '-'}</td>
+            <td class="px-4 py-3">${row.telefono || '-'}</td>
+            <td class="px-4 py-3">${row.email || '-'}</td>
+            <td class="px-4 py-3 max-w-xs truncate">${row.comentario || '-'}</td>
+            <td class="px-4 py-3">${row.horario_preferido || '-'}</td>
+            <td class="px-4 py-3">${new Date(row.fecha_envio).toLocaleString('es-MX')}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+      } catch (error) {
+        console.error(error);
+        alert("Error al cargar leads. Verifica la API.");
+      }
     }
 
     function exportarExcel() {
@@ -111,6 +119,37 @@
       const wb = XLSX.utils.table_to_book(tabla, { sheet: "Leads" });
       const fecha = new Date().toISOString().slice(0,10);
       XLSX.writeFile(wb, `leads_departamento_${fecha}.xlsx`);
+    }
+
+    // === NUEVO: BOTÓN PARA BORRAR TODOS LOS LEADS ===
+    async function borrarTodos() {
+      if (!confirm('¿Estás seguro? Esto borrará TODOS los leads de prueba (no se puede deshacer).')) {
+        return;
+      }
+
+      try {
+            const SUPABASE_URL = 'https://asezwpitjpsoimvfuwse.supabase.co';  // ← TU URL REAL
+            const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFzZXp3cGl0anBzb2ltdmZ1d3NlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMyMTg2MjIsImV4cCI6MjA3ODc5NDYyMn0.uQ_7fUy_cswe_OzmK1k_--BIO_55Bmy_6McqtgGK0SI';  // ← TU KEY REAL
+
+
+        const res = await axios.delete(`${SUPABASE_URL}/rest/v1/leads`, {
+          headers: {
+            'apikey': SUPABASE_KEY,
+            'Authorization': `Bearer ${SUPABASE_KEY}`,
+            'Prefer': 'return=representation'
+          }
+        });
+
+        if (res.status === 200) {
+          alert('¡Leads borrados! Tabla vacía.');
+          cargarLeads();  // Recarga la tabla vacía
+        } else {
+          alert('Error al borrar. Revisa la consola.');
+        }
+      } catch (error) {
+        console.error(error);
+        alert('Error al borrar leads.');
+      }
     }
 
     // Enter para login
