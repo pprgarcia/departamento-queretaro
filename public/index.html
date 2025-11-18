@@ -13,12 +13,52 @@
   <meta name="keywords" content="departamento en venta Querétaro, Rinconada Pirules, cerca Tec de Monterrey, inversión inmobiliaria, 2 recámaras, venta directa">
 
   <!-- SEO OCULTO (para reforzar) -->
-  <div hidden>
-    departamento en venta en Fraccionamiento Rinconada Pirules 2a Sección, inversión inmobiliaria, excelente inversión, ubicación privilegiada,
-    departamento en Querétaro, departamento barato, cerca centro histórico, mejor opción para inversionistas, departamento 2 recámaras, 
-    venta directa sin intermediarios, cerca Tec de Monterrey, cerca avenidas principales Constituyentes y 5 de Febrero, 
-    cerca centros comerciales, cerca hospitales, cerca universidades, rooftop con asador, gimnasio, seguridad 24/7
-  </div>
+
+    <!-- JSON-LD  -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Apartment",
+      "name": "Departamento 2 Recámaras en Rinconada Pirules 2a Sección, Querétaro",
+      "description": "Departamento en venta en excelente ubicación de Querétaro. Trato directo con dueño, sin intermediarios. Cerca del Tec de Monterrey, UAQ, avenidas principales, centros comerciales y hospitales. Ideal como inversión o vivienda.",
+      "image": "https://departamento-queretaro.vercel.app/fotos/fotoprincipal2.jpeg",
+      "url": "https://departamento-queretaro.vercel.app"
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Rinconada Pirules 2a Sección",
+        "addressLocality": "Querétaro",
+        "addressRegion": "Querétaro",
+        "postalCode": "76000",
+        "addressCountry": "MX"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "20.6121",
+        "longitude": "-100.4062"
+      },
+      "numberOfRooms": 2,
+      "floorSize": {
+        "@type": "QuantitativeValue",
+        "value": "85",
+        "unitCode": "MTK"
+      },
+      "amenityFeature": [
+        {"@type": "LocationFeatureSpecification", "name": "Rooftop con asador"},
+        {"@type": "LocationFeatureSpecification", "name": "Seguridad 24/7"},
+        {"@type": "LocationFeatureSpecification", "name": "Áreas verdes"},
+        {"@type": "LocationFeatureSpecification", "name": "Estacionamiento"}
+      ],
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "MXN",
+        "availability": "https://schema.org/InStock",
+        "seller": {
+          "@type": "Person",
+          "name": "Propietario directo"
+        }
+      }
+    }
+    </script>
 
 </head>
 
@@ -37,7 +77,6 @@
 
 
   <!-- Navbar responsiva -->
-
     <nav class="bg-white shadow-lg sticky top-0 z-50 w-full">
       <div class="container mx-auto px-4 py-4 flex justify-between items-center">
         <!-- Título -->
@@ -64,26 +103,19 @@
       </div>
     </nav>
 
-    <!-- Menú Móvil DESPLEGABLE -->
-    <div id="menuMobile" class="hidden bg-white border-t border-gray-200 shadow-lg w-full transition-all duration-300 ease-in-out">
-      <div class="container mx-auto px-4">
-        <a href="/" class="block py-4 text-lg font-semibold text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition">
-          Inicio
-        </a>
-        <a href="/galeria.html" class="block py-4 text-lg font-semibold text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition border-t border-gray-200">
-          Galería
-        </a>
+        <!-- MENÚ MÓVIL PANTALLA COMPLETA -->
+    <div id="mobileMenu" class="fixed inset-0 bg-white hidden flex flex-col items-center justify-center space-y-12 text-3xl font-bold z-50">
+      <!-- Botón cerrar (X grande) -->
+      <button id="closeMenu" class="absolute top-6 right-6 p-2 bg-indigo-100 rounded-full hover:bg-indigo-200 transition">
+        <svg class="w-10 h-10 text-indigo-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+
+      <a href="/" class="text-indigo-700 hover:text-indigo-500 transition">Inicio</a>
+        <a href="/galeria.html" class="text-indigo-700 hover:text-indigo-500 transition">Galería</a>
       </div>
 
-    </div>
-
-    <script>
-      // Toggle menú móvil
-      document.getElementById('menuBtn').addEventListener('click', () => {
-        const menu = document.getElementById('menuMobile');
-        menu.classList.toggle('hidden');
-      });
-    </script>
 
     <br>
 <!-- Contenido principal -->
@@ -525,23 +557,29 @@
         }
 
         // === NAVBAR MÓVIL ===
+        
+          const menuBtn = document.getElementById('menuBtn');
+          const mobileMenu = document.getElementById('mobileMenu');
+          const closeMenu = document.getElementById('closeMenu');
 
-  document.addEventListener('DOMContentLoaded', () => {
-    const menuBtn = document.getElementById('menuBtn');
-    const menuMobile = document.getElementById('menuMobile');
+          menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; // bloquea scroll de fondo
+          });
 
-    if (menuBtn && menuMobile) {
-      menuBtn.addEventListener('click', () => {
-        menuMobile.classList.toggle('hidden');
-        // Forzar altura para transición
-        if (!menuMobile.classList.contains('hidden')) {
-          menuMobile.style.maxHeight = menuMobile.scrollHeight + 'px';
-        } else {
-          menuMobile.style.maxHeight = '0';
-        }
-      });
-    }
-  });
+          closeMenu.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+          });
+
+          // Cerrar al tocar cualquier enlace
+          mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+              mobileMenu.classList.add('hidden');
+              document.body.style.overflow = 'auto';
+            });
+          });
+      
 
         // === LIGHTBOX (si existe) ===
         const lightbox = document.getElementById('lightbox');
@@ -579,12 +617,8 @@
           });
         }
       });
-    </script>
 
 
-<!-- === SCRIPT AL FINAL DEL BODY === -->
-  <script>
-    // ← CAMBIA 'TU_ID_REAL_DE_FORM' POR EL ID REAL DE TU <form>
     const form = document.getElementById('formContacto');
 
     if (form) {
@@ -641,6 +675,40 @@
       console.error('NO SE ENCONTRÓ EL FORMULARIO - ID:', 'TU_ID_REAL_DE_FORM');
     }
   </script>
+  <div class="sr-only" aria-hidden="true">
+      departamento en venta querétaro rinconada pirules 2a sección, 
+      departamento 2 recámaras querétaro sin intermediarios, 
+      departamento cerca tec de monterrey querétaro, 
+      departamento cerca constituyentes y 5 de febrero, 
+      departamento cerca UAQ tecnológico de monterrey querétaro,
+      inversión inmobiliaria querétaro 2025, venta directa dueño,
+      departamento con rooftop y asador querétaro, 
+      fraccionamiento con seguridad 24/7 áreas verdes, 
+      departamento con estacionamiento propio, 
+      cerca antea juriquilla el refugio zibatá milenio iii campanario,
+      cerca costco walmart soriana chedraui, cerca hospital ebor,
+      ideal renta estudiantes tec uaq airbnb, 
+      departamento económico querétaro centro, 
+      mejor inversión inmobiliaria querétaro 2025
+  </div>
+
+    <!-- Versión en inglés (extranjeros y estudiantes internacionales) -->
+  <div class="sr-only" aria-hidden="true">
+      apartment for sale queretaro mexico, 2 bedroom apartment near tec de monterrey,
+      direct sale no commission no agents, investment property queretaro,
+      gated community 24/7 security, rooftop bbq area, parking included,
+      near antea juriquilla el refugio zibatá, near UAQ universities,
+      quiet and safe neighborhood queretaro, best place to live in queretaro
+  </div>
+    <!-- Lista oculta (Google ama las listas) -->
+  <ul class="hidden" aria-hidden="true">
+      <li>departamento en venta sin comisiones querétaro</li>
+      <li>departamento cerca del centro histórico querétaro</li>
+      <li>departamento 2 baños completos querétaro</li>
+      <li>fraccionamiento rinconada pirules 2a sección</li>
+      <li>departamento ideal para estudiantes del tec</li>
+      <li>trato directo con el propietario</li>
+  </ul>
 </body>
 </html>
       
