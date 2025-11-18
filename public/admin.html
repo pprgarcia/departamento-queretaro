@@ -130,7 +130,8 @@ async function borrarTodos() {
 
   try {
     const SUPABASE_URL = 'https://asezwpitjpsoimvfuwse.supabase.co';
-    const SUPABASE_KEY = 'TU_ANON_KEY_COMPLETA_AQUÍ';  // ← TU KEY
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFzZXp3cGl0anBzb2ltdmZ1d3NlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMyMTg2MjIsImV4cCI6MjA3ODc5NDYyMn0.uQ_7fUy_cswe_OzmK1k_--BIO_55Bmy_6McqtgGK0SI';  
+
 
     // Obtener todos los IDs primero
     const resIDs = await axios.get(`${SUPABASE_URL}/rest/v1/leads?select=id`, {
