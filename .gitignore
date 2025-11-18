@@ -1,4 +1,11 @@
-.env
+
 # Este es el password de la base de datos: 8520
-node_modules/
 # node server.js
+
+echo ".env
+node_modules/
+backend/node_modules/
+*.html
+!public/index.html
+!public/galeria.html
+!public/mi-admin-secreto-2025-x7k9p2m.html" > .gitignore
