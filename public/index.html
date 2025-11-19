@@ -681,11 +681,16 @@
         e.preventDefault();
      
 
-        const SUPABASE_URL = 'https://asezwpitjpsoimvfuwse.supabase.co';
-        // Lectura segura de la anon key (funciona en desarrollo y producción)
-        const SUPABASE_ANON_KEY = 
-          import.meta.env?.VITE_SUPABASE_ANON_KEY || 
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFzZXp3cGl0anBzb2ltdmZ1d3NlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMyMTg2MjIsImV4cCI6MjA3ODc5NDYyMn0.uQ_7fUy_cswe_OzmK1k_--BIO_55Bmy_6McqtgGK0SI";
+      const SUPABASE_URL="https://asezwpitjpsoimvfuwse.supabase.co";
+      // Clave Supabase – 100% desde variable de entorno (nada en código)
+
+    const SUPABASE_ANON_KEY = import.meta.env?.VITE_SUPABASE_ANON_KEY;
+
+    if (!SUPABASE_ANON_KEY) {
+      console.error("ERROR: Falta la clave de Supabase. Configura VITE_SUPABASE_ANON_KEY en Vercel.");
+      alert("Error de configuración del sitio. Contacta al administrador.");
+}
+
 
         const formData = new FormData(form);
         const data = {
