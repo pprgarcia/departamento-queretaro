@@ -425,6 +425,60 @@
           <textarea name="comentario" rows="4" class="w-full px-4 py-2 border rounded-lg" placeholder="Estoy interesado en agendar una visita..." autocomplete="new-password"></textarea>
         </div>
 
+        <!-- Aviso de privacidad (obligatorio) -->
+        <div class="mb-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+          <h4 class="font-semibold text-yellow-800 mb-2">Aviso de Privacidad</h4>
+          <p class="text-sm text-yellow-700 mb-2">Al enviar este formulario, aceptas que tus datos (nombre, teléfono, email) se usen solo para contactarte sobre el departamento. No compartiremos tu información. Tienes derechos ARCO (acceso, rectificación, cancelación, oposición). Consulta el 
+                  <!-- Enlace de aviso-privacidad -->
+              <button type="button" onclick="document.getElementById('modalPrivacidad').showModal()" 
+                class="text-indigo-600 underline hover:text-indigo-800">
+                aviso completo
+              </button>
+          </p>
+          <label class="flex items-center">
+            <input type="checkbox" name="acepta_privacidad" required class="mr-2">
+            <span class="text-sm text-yellow-700">Acepto el aviso de privacidad</span>
+          </label>
+        </div>
+
+      <!-- ==== MODAL DEL AVISO ==== -->
+<!-- MODAL DEL AVISO – BOTÓN DENTRO DEL RECUADRO, CENTRADO Y PEGADO ABAJO -->
+      <dialog id="modalPrivacidad" class="p-0 rounded-xl max-w-2xl w-11/12 bg-white shadow-2xl">
+        <!-- Contenido con scroll -->
+        <div class="max-h-[80vh] overflow-y-auto p-8">
+          <h1 class="text-3xl font-bold text-indigo-700 mb-6">Aviso de Privacidad</h1>
+          
+          <p class="mb-4">En cumplimiento de la Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP), te informamos:</p>
+          
+          <h2 class="font-semibold text-lg mb-2">Datos recolectados</h2>
+          <p class="mb-4">Nombre, teléfono, email y comentario, para contactarte sobre el departamento en venta.</p>
+          
+          <h2 class="font-semibold text-lg mb-2">Finalidad</h2>
+          <p class="mb-4">Responder tu consulta y agendar visitas. No compartimos tus datos con terceros.</p>
+          
+          <h2 class="font-semibold text-lg mb-2">Derechos ARCO</h2>
+          <p class="mb-4">Puedes acceder, rectificar, cancelar u oponerte al tratamiento de tus datos. Escribe a 
+            <a href="mailto:pprgarcia.jr@gmail.com" class="text-indigo-600 underline">pprgarcia.jr@gmail.com</a> para ejercerlos.</p>
+          
+          <h2 class="font-semibold text-lg mb-2">Transferencia</h2>
+          <p class="mb-4">No transferimos tus datos a terceros, salvo por orden judicial.</p>
+          
+          <h2 class="font-semibold text-lg mb-2">Actualización</h2>
+          <p class="mb-4">Aviso actualizado el 19 de noviembre de 2025.</p>
+          
+          <p class="text-sm text-gray-600">Responsable: José Rodríguez García</p>
+        </div>
+
+        <!-- BOTÓN DENTRO DEL RECUADRO – FIJO ABAJO Y CENTRADO -->
+        <div class="border-t border-gray-200 bg-gray-50 px-8 py-6 text-center">
+          <button 
+            onclick="document.getElementById('modalPrivacidad').close()" 
+            class="inline-block bg-indigo-600 text-white font-medium text-lg px-12 py-3 rounded-lg hover:bg-indigo-700 transition">
+            Cerrar y volver al formulario
+          </button>
+        </div>
+      </dialog>
+
         <button type="submit" class="w-full bg-indigo-600 text-white py-3 rounded-lg font-semibold hover:bg-indigo-700 transition">
           Enviar mensaje
         </button>
@@ -618,7 +672,7 @@
         }
       });
 
-
+      // FORMULARIO
     const form = document.getElementById('formContacto');
 
     if (form) {
@@ -642,6 +696,11 @@
 
         if (!data.nombre || !data.telefono || !data.email) {
           alert('Llena nombre, teléfono y email.');
+          return;
+        }
+
+        if (!document.querySelector('input[name="acepta_privacidad"]').checked) {
+          alert('Debes aceptar el aviso de privacidad.');
           return;
         }
 
