@@ -1,7 +1,17 @@
-echo ".env
+# Variables de entorno (nunca subir)
+.env
+.env.*
+.env.local
+.env.production
+.env.development
+
+# Dependencias
 node_modules/
 backend/node_modules/
+
+# Ignorar TODOS los HTML (máxima seguridad)
 *.html
+
+# Solo permitir los dos archivos públicos que SÍ queremos en GitHub
 !public/index.html
 !public/galeria.html
-!public/mi-admin-secreto-2025-x7k9p2m.html" > .gitignore
