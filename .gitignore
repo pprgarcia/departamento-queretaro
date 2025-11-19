@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-
-# Este es el password de la base de datos: 8520
-# node server.js
-
 echo ".env
 node_modules/
 backend/node_modules/
@@ -10,6 +5,3 @@ backend/node_modules/
 !public/index.html
 !public/galeria.html
 !public/mi-admin-secreto-2025-x7k9p2m.html" > .gitignore
-=======
-Borrado por razones de seguridad
->>>>>>> 336c28b9689355f66099cee5dbcdb0d9ec16898c
