@@ -7,8 +7,6 @@ Este proyecto lo construí desde cero como ejercicio real de desarrollo full-sta
 
 **Link en vivo:** <https://departamento-queretaro.vercel.app>  
 
-![Captura principal](public/screenshot-desktop.jpg)
-
 ## Características principales
 
 - Diseño 100 % responsive (PC, tablet, móvil)
