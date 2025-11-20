@@ -1,19 +1,21 @@
 # Departamento en Venta – Querétaro (Rinconada Pirules 2a Sección)
 
-**Proyecto personal full-stack | HTML • TailwindCSS • JavaScript • Supabase • Vercel**
+Proyecto personal full-stack | HTML • TailwindCSS • JavaScript • Supabase • Vercel
 
 ¡Bienvenido al código fuente de mi página web para la venta de mi departamento en Querétaro!  
 Este proyecto lo construí desde cero como ejercicio real de desarrollo full-stack, diseño responsive, SEO, seguridad y cumplimiento legal (LFPDPPP).
 
-**Link en vivo:** https://departamento-queretaro.vercel.app  
+**Link en vivo:** <https://departamento-queretaro.vercel.app>  
+
+![Captura principal](public/screenshot-desktop.jpg)
 
 ## Características principales
 
-- **Diseño 100 % responsive** (PC, tablet, móvil)
+- Diseño 100 % responsive (PC, tablet, móvil)
 - Galería de fotos con lightbox
-- Mapa interactivo de leaflet Maps
+- Mapa interactivo con **Leaflet + OpenStreetMap** (sin costo de API)
 - Formulario de contacto con almacenamiento seguro en Supabase
-- **Aviso de privacidad completo y cumpliendo LFPDPPP** (modal elegante)
+- Aviso de privacidad completo y cumpliendo LFPDPPP (modal elegante)
 - Panel de administración privado con:
   - Casillas “contactado” y “borrar seleccionados”
   - Exportación a Excel
@@ -27,13 +29,13 @@ Este proyecto lo construí desde cero como ejercicio real de desarrollo full-sta
 
 ## Tecnologías usadas
 
-| Tecnología       | Uso                                      |
-|------------------|------------------------------------------|
+| Tecnología          | Uso                                      |
+|---------------------|------------------------------------------|
 | HTML5 + TailwindCSS | Maquetación y diseño moderno            |
-| JavaScript (ES6+) | Lógica del formulario, modal, admin     |
-| Supabase         | Base de datos de leads (PostgreSQL)     |
-| Vercel           | Hosting gratuito y despliegue continuo  |
-| leaflet Maps API  | Ubicación interactiva                   |
+| JavaScript (ES6+)   | Lógica del formulario, modal, admin     |
+| Supabase            | Base de datos de leads (PostgreSQL)     |
+| Vercel              | Hosting gratuito y despliegue continuo  |
+| Leaflet + OSM       | Mapa interactivo gratuito               |
 
 ## Panel de administración (privado)
 
@@ -55,6 +57,10 @@ Este proyecto lo construí desde cero como ejercicio real de desarrollo full-sta
 git clone https://github.com/pprgarcia/departamento-queretaro.git
 cd departamento-queretaro
 # Abre public/index.html en tu navegador
+
+
+El formulario solo funciona en producción (Vercel) porque la clave de Supabase está protegida como variable de entorno.
+
 
 Autor
 José Rodríguez García
