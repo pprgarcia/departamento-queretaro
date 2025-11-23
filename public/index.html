@@ -571,33 +571,84 @@
    
   <script src="/config.js"></script>
     <script>
-    form.addEventListener('submit', async e => {
-  e.preventDefault();
-  console.log("Clave detectada:", SUPABASE_ANON_KEY ? "SÍ" : "NO");
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('formContacto');
+      if (!form) {
+        console.error("No se encontró el formulario con id='formContacto'");
+        return;
+      }
 
-  try {
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/leads`, {
-      method: 'POST',
-      headers: {
-        'apikey': SUPABASE_ANON_KEY,
-        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-        'Content-Type': 'application/json',
-        'Prefer': 'return=minimal'
-      },
-      body: JSON.stringify({ test: 'debug' })  // payload simple para prueba
+      // === TU CÓDIGO DEL FORMULARIO (todo igual que antes) ===
+      const config = window.APP_CONFIG || {};
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const fd = new FormData(form);
+        const data = {
+          nombre: fd.get('nombre')?.trim() || '',
+          telefono: fd.get('telefono')?.trim() || '',
+          email: fd.get('email')?.trim() || '',
+          comentario: fd.get('comentario')?.trim() || '',
+          horario_preferido: fd.get('horario') || '',
+          fecha_envio: new Date().toISOString()
+        };
+
+        // Validación inteligente
+        if (!data.nombre) return alert('Por favor escribe tu nombre');
+        if (!data.telefono && !data.email) {
+          return alert('Por favor deja tu teléfono (WhatsApp) o tu email');
+        }
+        if (data.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+          return alert('El email no tiene formato válido');
+        }
+        if (data.telefono && data.telefono.replace(/\D/g, '').length < 10) {
+          return alert('El teléfono debe tener al menos 10 dígitos');
+        }
+        if (!form.querySelector('[name="acepta_privacidad"]').checked) {
+          return alert('Debes aceptar el aviso de privacidad');
+        }
+
+        try {
+          let respuesta;
+
+          if (config.apiUrl) {
+            // Local → MySQL
+            respuesta = await fetch(config.apiUrl, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(data)
+            });
+          } else if (config.key) {
+            // Producción → Supabase
+            respuesta = await fetch(`${config.url}/rest/v1/leads`, {
+              method: 'POST',
+              headers: {
+                'apikey': config.key,
+                'Authorization': `Bearer ${config.key}`,
+                'Content-Type': 'application/json',
+                'Prefer': 'return=minimal'
+              },
+              body: JSON.stringify(data)
+            });
+          } else {
+            throw new Error("No hay configuración de base de datos");
+          }
+
+          if (respuesta.ok) {
+            alert('¡Gracias! Tu mensaje ha sido enviado correctamente.');
+            form.reset();
+          } else {
+            const error = await respuesta.text();
+            console.error("Error del servidor:", error);
+            alert('Error al enviar. Intenta más tarde.');
+          }
+        } catch (err) {
+          console.error("Error de conexión:", err);
+          alert('Hubo un problema al enviar. Por favor intenta de nuevo.');
+        }
+      });
     });
-
-    console.log("Status:", res.status);
-    console.log("Response:", await res.text());
-    
-    if (res.ok) alert('¡Funciona!');
-    else alert('Error status: ' + res.status);
-  } catch (err) {
-    console.error("Error completo:", err);
-    alert('Error de conexión: ' + err.message);
-  }
-});
-    
     </script>
 
 
