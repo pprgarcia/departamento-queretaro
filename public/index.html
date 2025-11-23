@@ -484,6 +484,31 @@
     window.onload = () => {
       // El popup ya está visible por defecto
     };
+
+    // === NAVBAR MÓVIL ===
+    
+      const menuBtn = document.getElementById('menuBtn');
+      const mobileMenu = document.getElementById('mobileMenu');
+      const closeMenu = document.getElementById('closeMenu');
+
+      menuBtn.addEventListener('click', () => {
+        mobileMenu.classList.remove('hidden');
+        document.body.style.overflow = 'hidden'; // bloquea scroll de fondo
+      });
+
+      closeMenu.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        document.body.style.overflow = 'auto';
+      });
+
+      // Cerrar al tocar cualquier enlace
+      mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.add('hidden');
+          document.body.style.overflow = 'auto';
+        });
+      });
+      
   </script>
 
   
@@ -543,119 +568,10 @@
       .carousel-item { transition: transform 0.5s ease; position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
     </style>
 
-    <!-- LIGHTBOX + CARRUSEL + NAVBAR (TODO EN UNO) -->
+   
     <script>
-      document.addEventListener('DOMContentLoaded', () => {
-
-
-        // === CARRUSEL ===
-        const carousel = document.querySelector('.carousel');
-        if (carousel) {
-          const items = carousel.querySelectorAll('.carousel-item');
-          const prevBtn = document.querySelector('.carousel-prev');
-          const nextBtn = document.querySelector('.carousel-next');
-          const dots = document.querySelectorAll('.carousel-dot');
-          
-          let current = 0;
-          const total = items.length;
-
-          const showSlide = (index) => {
-            items.forEach((item, i) => {
-              item.style.transform = `translateX(${(i - index) * 100}%)`;
-            });
-            dots.forEach((dot, i) => {
-              dot.classList.toggle('bg-white', i === index);
-              dot.classList.toggle('bg-white/70', i !== index);
-            });
-          };
-
-          prevBtn?.addEventListener('click', () => {
-            current = (current - 1 + total) % total;
-            showSlide(current);
-          });
-
-          nextBtn?.addEventListener('click', () => {
-            current = (current + 1) % total;
-            showSlide(current);
-          });
-
-          let autoPlay = setInterval(() => {
-            current = (current + 1) % total;
-            showSlide(current);
-          }, 4000);
-
-          carousel.addEventListener('mouseenter', () => clearInterval(autoPlay));
-          carousel.addEventListener('mouseleave', () => {
-            autoPlay = setInterval(() => {
-              current = (current + 1) % total;
-              showSlide(current);
-            }, 4000);
-          });
-
-          showSlide(0);
-        }
-
-        // === NAVBAR MÓVIL ===
+ 
         
-          const menuBtn = document.getElementById('menuBtn');
-          const mobileMenu = document.getElementById('mobileMenu');
-          const closeMenu = document.getElementById('closeMenu');
-
-          menuBtn.addEventListener('click', () => {
-            mobileMenu.classList.remove('hidden');
-            document.body.style.overflow = 'hidden'; // bloquea scroll de fondo
-          });
-
-          closeMenu.addEventListener('click', () => {
-            mobileMenu.classList.add('hidden');
-            document.body.style.overflow = 'auto';
-          });
-
-          // Cerrar al tocar cualquier enlace
-          mobileMenu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-              mobileMenu.classList.add('hidden');
-              document.body.style.overflow = 'auto';
-            });
-          });
-      
-
-        // === LIGHTBOX (si existe) ===
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightbox-img');
-        if (lightbox && lightboxImg) {
-          let fotos = [];
-          let indiceActual = 0;
-
-          function abrirLightbox(src, index) {
-            lightbox.classList.remove('hidden');
-            lightboxImg.src = src;
-            indiceActual = index;
-            document.body.style.overflow = 'hidden';
-          }
-
-          function cerrarLightbox() {
-            lightbox.classList.add('hidden');
-            document.body.style.overflow = 'auto';
-            lightboxImg.src = '';
-          }
-
-          document.getElementById('lightbox')?.addEventListener('click', cerrarLightbox);
-          document.querySelector('#lightbox > div')?.addEventListener('click', (e) => e.stopPropagation());
-
-          fotos = Array.from(document.querySelectorAll('[id^="foto"]'));
-          fotos.forEach((contenedor, i) => {
-            const img = contenedor.querySelector('img');
-            if (img) {
-              contenedor.style.cursor = 'pointer';
-              contenedor.onclick = (e) => {
-                e.stopPropagation();
-                abrirLightbox(img.src, i);
-              };
-            }
-          });
-        }
-      });
 
       // FORMULARIO
     const form = document.getElementById('formContacto');
@@ -701,8 +617,8 @@
           const respuesta = await fetch(`${SUPABASE_URL}/rest/v1/leads`, {
             method: 'POST',
             headers: {
-              'apikey': SUPABASE_KEY,
-              'Authorization': `Bearer ${SUPABASE_KEY}`,
+              'apikey': SUPABASE_ANON_KEY,
+              'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
               'Content-Type': 'application/json',
               'Prefer': 'return=minimal'
             },
@@ -750,7 +666,8 @@
       direct sale no commission no agents, investment property queretaro,
       gated community 24/7 security, rooftop bbq area, parking included,
       near antea juriquilla el refugio zibatá, near UAQ universities,
-      quiet and safe neighborhood queretaro, best place to live in queretaro
+      quiet and safe neighborhood queretaro, best place to live in queretaro,
+      house for sale
   </div>
     <!-- Lista oculta (Google ama las listas) -->
   <ul class="hidden" aria-hidden="true">
@@ -760,6 +677,7 @@
       <li>fraccionamiento rinconada pirules 2a sección</li>
       <li>departamento ideal para estudiantes del tec</li>
       <li>trato directo con el propietario</li>
+      <li>casa en venta en querétaro</li>
   </ul>
 </body>
 </html>
