@@ -386,11 +386,11 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label class="block text-sm font-medium mb-1">Teléfono</label>
-            <input type="tel" name="telefono" placeholder="Teléfono" required autocomplete="new-password" class="w-full px-4 py-2 border rounded-lg" >
+            <input type="tel" name="telefono" placeholder="Teléfono con WhatsApp"  autocomplete="new-password" class="w-full px-4 py-2 border rounded-lg" >
           </div>
           <div>
             <label class="block text-sm font-medium mb-1">Email</label>
-            <input type="email" name="email" placeholder="Email" required autocomplete="new-password" class="w-full px-4 py-2 border rounded-lg" >
+            <input type="email" name="email" placeholder="Email"  autocomplete="new-password" class="w-full px-4 py-2 border rounded-lg" >
           </div>
         </div>
 
@@ -569,80 +569,97 @@
     </style>
 
    
+  <script src="/config.js"></script>
     <script>
- 
-        
+    
+      const form = document.getElementById('formContacto');
+      if (!form) ;
 
-      // FORMULARIO
-    const form = document.getElementById('formContacto');
-
-    if (form) {
+      const config = window.APP_CONFIG;
 
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
-     
 
-      const SUPABASE_URL="https://asezwpitjpsoimvfuwse.supabase.co";
-      // Clave Supabase – 100% desde variable de entorno (nada en código)
-
-    const SUPABASE_ANON_KEY = import.meta.env?.VITE_SUPABASE_ANON_KEY;
-
-    if (!SUPABASE_ANON_KEY) {
-      console.error("ERROR: Falta la clave de Supabase. Configura VITE_SUPABASE_ANON_KEY en Vercel.");
-      alert("Error de configuración del sitio. Contacta al administrador.");
-}
-
-
-        const formData = new FormData(form);
+        const fd = new FormData(form);
         const data = {
-          nombre: formData.get('nombre')?.trim() || '',
-          telefono: formData.get('telefono')?.trim() || '',
-          email: formData.get('email')?.trim() || '',
-          comentario: formData.get('comentario')?.trim() || '',
-          horario_preferido: formData.get('horario') || '',
+          nombre: fd.get('nombre')?.trim() || '',
+          telefono: fd.get('telefono')?.trim() || '',
+          email: fd.get('email')?.trim() || '',
+          comentario: fd.get('comentario')?.trim() || '',
+          horario_preferido: fd.get('horario') || '',
           fecha_envio: new Date().toISOString()
         };
 
-        if (!data.nombre || !data.telefono || !data.email) {
-          alert('Llena nombre, teléfono y email.');
-          return;
-        }
+        // Validaciones
+      // === VALIDACIÓN INTELIGENTE: Nombre + al menos un contacto ===
+     // === VALIDACIÓN PROFESIONAL (tú mandas) ===
+      if (!data.nombre) {
+        return alert('Por favor escribe tu nombre');
+      }
 
-        if (!document.querySelector('input[name="acepta_privacidad"]').checked) {
-          alert('Debes aceptar el aviso de privacidad.');
-          return;
-        }
+      if (!data.telefono && !data.email) {
+        return alert('Deja tu teléfono (con WhatsApp) o tu email para contactarte');
+      }
+
+      if (data.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+        return alert('Por favor escribe un email válido');
+      }
+
+      if (data.telefono && data.telefono.replace(/\D/g, '').length < 10) {
+        return alert('El teléfono debe tener al menos 10 dígitos');
+      }
+      // Aceptación del aviso de privacidad
+      if (!form.querySelector('[name="acepta_privacidad"]').checked) {
+        return alert('Debes aceptar el aviso de privacidad');
+      }
 
         try {
-          const respuesta = await fetch(`${SUPABASE_URL}/rest/v1/leads`, {
-            method: 'POST',
-            headers: {
-              'apikey': SUPABASE_ANON_KEY,
-              'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-              'Content-Type': 'application/json',
-              'Prefer': 'return=minimal'
-            },
-            body: JSON.stringify(data)
-          });
+          let respuesta;
+
+          if (config.apiUrl) {
+            // === MODO LOCAL → MySQL via backend Node.js ===
+            console.log("Enviando a MySQL local (departamento_venta)...");
+            respuesta = await fetch(config.apiUrl, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(data)
+            });
+          } else if (config.key) {
+            // === MODO PRODUCCIÓN → Supabase ===
+            console.log("Enviando a Supabase (producción)");
+            respuesta = await fetch(`${config.url}/rest/v1/leads`, {
+              method: 'POST',
+              headers: {
+                'apikey': config.key,
+                'Authorization': `Bearer ${config.key}`,
+                'Content-Type': 'application/json',
+                'Prefer': 'return=minimal'
+              },
+              body: JSON.stringify(data)
+            });
+          } else {
+            throw new Error("No hay configuración de base de datos");
+          }
 
           if (respuesta.ok) {
-            alert('¡Gracias! Te contactaremos pronto.');
+            alert('¡Gracias! Tu mensaje ha sido enviado correctamente.');
             form.reset();
-
+            console.log("Lead guardado con éxito");
           } else {
             const error = await respuesta.text();
-            console.error('ERROR SUPABASE:', error);
-            alert('Error al enviar.');
+            console.error("Error del servidor:", error);
+            alert('Error al enviar. Intenta más tarde.');
           }
-        } catch (error) {
-          console.error('ERROR DE RED:', error);
-          alert('Error de conexión.');
+        } catch (err) {
+          console.error("Error de conexión:", err);
+          alert('Error de conexión. Asegúrate de que el servidor local esté corriendo (node server.js)');
         }
       });
-    } else {
-      console.error('NO SE ENCONTRÓ EL FORMULARIO - ID:', 'TU_ID_REAL_DE_FORM');
-    }
-  </script>
+    
+</script>
+
+
+
   <div class="sr-only" aria-hidden="true">
       departamento en venta querétaro rinconada pirules 2a sección, 
       departamento 2 recámaras querétaro sin intermediarios, 
