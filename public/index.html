@@ -11,9 +11,9 @@
   <title>Departamento en Venta en Rinconada Pirules 2a Sección, Querétaro - 2 Recámaras</title>
   <meta name="description" content="Departamento en venta en Fraccionamiento Rinconada Pirules 2a Sección, Querétaro. 2 recámaras, cerca del Tec de Monterrey, excelente inversión inmobiliaria. Venta directa sin intermediarios.">
   <meta name="keywords" content="departamento en venta Querétaro, Rinconada Pirules, cerca Tec de Monterrey, inversión inmobiliaria, 2 recámaras, venta directa">
-
+  <meta name="supabase-anon-key" content="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzIiwicmVmIjoiYXNlendwaXRqcHNvaNOESLACORRECTA">
+  
   <!-- SEO OCULTO (para reforzar) -->
-
     <!-- JSON-LD  -->
     <script type="application/ld+json">
       {
@@ -379,23 +379,26 @@
       <h3 class="text-2xl font-bold mb-6 text-center">¡Contáctanos!</h3>
       <form id="formContacto" class="space-y-5" autocomplete="off">
         <div>
-          <label class="block text-sm font-medium mb-1">Nombre completo *</label>
+          <label class="block text-sm font-medium mb-1">Nombre completo *
           <input type="text" name="nombre" placeholder="Nombre completo" required autocomplete="new-password" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" onfocus="this.removeAttribute('autocomplete')">
+          </label>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label class="block text-sm font-medium mb-1">Teléfono</label>
+            <label class="block text-sm font-medium mb-1">Teléfono
             <input type="tel" name="telefono" placeholder="Teléfono con WhatsApp"  autocomplete="new-password" class="w-full px-4 py-2 border rounded-lg" >
+            </label>
           </div>
           <div>
-            <label class="block text-sm font-medium mb-1">Email</label>
+            <label class="block text-sm font-medium mb-1">Email
             <input type="email" name="email" placeholder="Email"  autocomplete="new-password" class="w-full px-4 py-2 border rounded-lg" >
+            </label>
           </div>
         </div>
 
         <div>
-          <label class="block text-sm font-medium mb-1">Horario preferido para contacto</label>
+          <label class="block text-sm font-medium mb-1">Horario preferido para contacto
           <select id="horario" name="horario" autocomplete="new-password" class="w-full px-4 py-2 border rounded-lg">
             
             <option value="">Cualquier horario</option>
@@ -403,11 +406,13 @@
             <option value="tarde">Tarde (14:00 - 18:00)</option>
             <option value="noche">Noche (18:00 - 21:00)</option>
           </select>
+          </label>
         </div>
 
         <div>
-          <label class="block text-sm font-medium mb-1">Comentarios</label>
+          <label class="block text-sm font-medium mb-1">Comentarios
           <textarea name="comentario" rows="4" class="w-full px-4 py-2 border rounded-lg" placeholder="Estoy interesado en agendar una visita..." autocomplete="new-password"></textarea>
+        </label>
         </div>
 
         <!-- Aviso de privacidad (obligatorio) -->
@@ -576,18 +581,30 @@
 
         const isLocal = location.hostname === 'localhost' || 
                         location.hostname === '127.0.0.1' ||
-                        location.port === '5500';
+                        location.port === '3000';
 
-        // CLAVE SUPABASE – SOLUCIÓN DEFINITIVA Y SEGURA
-          const SUPABASE_KEY = (function() {
-            // 1. En local: no usamos Supabase → devolvemos null
-            if (location.hostname === 'localhost' || location.hostname === '127.0.0.1' || location.port === '3000') {
-              return null;
-            }
-            // 2. En producción: clave REAL (tú la pones aquí una sola vez)
-            return 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFzZXp3cGl0anBzb2ltdmZ1d3NlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMyMTg2MjIsImV4cCI6MjA3ODc5NDYyMn0.uQ_7fUy_cswe_OzmK1k_--BIO_55Bmy_6McqtgGK0SI';
-          })();
+     
+       
+        // CLAVE SUPABASE ANÓNIMA ---
+        const SUPABASE_KEY = (() => {
+          const isLocal = ['localhost', '127.0.0.1'].includes(location.hostname) ||
+                          ['3000'].includes(location.port);
+
+          if (isLocal) return null; // usa MySQL local
+
+          // En producción: Vercel inyecta la variable → queda oculta
+          const key = window.VITE_SUPABASE_ANON_KEY ||
+                      document.querySelector('meta[name="supabase-anon-key"]')?.content;
+
+          if (!key) {
+            console.error("Falta la clave anon de Supabase en producción");
+            return null;
+          }
+          return key;
+        })();
+
         const SUPABASE_URL = 'https://asezwpitjpsoimvfuwse.supabase.co';
+
 
 
         form.addEventListener('submit', async (e) => {
@@ -601,7 +618,7 @@
             telefono: fd.get('telefono')?.trim() || '',
             email: fd.get('email')?.trim() || '',
             comentario: fd.get('comentario')?.trim() || '',
-            
+
             horario_preferido: fd.get('horario') || '',
             fecha_envio: new Date().toISOString()
           };
@@ -656,6 +673,7 @@
           }
         });
       });
+    
     </script>
 
 
