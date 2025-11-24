@@ -568,87 +568,77 @@
       .carousel-item { transition: transform 0.5s ease; position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
     </style>
 
-   
-  <script src="/config.js"></script>
     <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const form = document.getElementById('formContacto');
-      if (!form) {
-        console.error("No se encontró el formulario con id='formContacto'");
-        return;
-      }
+      document.addEventListener('DOMContentLoaded', () => {
+        const form = document.getElementById('formContacto');
+        if (!form) return;
 
-      // === TU CÓDIGO DEL FORMULARIO (todo igual que antes) ===
-      const config = window.APP_CONFIG || {};
+        const isLocal = location.hostname === 'localhost' || 
+                        location.hostname === '127.0.0.1' ||
+                        location.port === '5500';
 
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
+        const SUPABASE_KEY = window.VITE_SUPABASE_ANON_KEY;
+        const SUPABASE_URL = 'https://asezwpitjpsoimvfuwse.supabase.co';
 
-        const fd = new FormData(form);
-        const data = {
-          nombre: fd.get('nombre')?.trim() || '',
-          telefono: fd.get('telefono')?.trim() || '',
-          email: fd.get('email')?.trim() || '',
-          comentario: fd.get('comentario')?.trim() || '',
-          horario_preferido: fd.get('horario') || '',
-          fecha_envio: new Date().toISOString()
-        };
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
 
-        // Validación inteligente
-        if (!data.nombre) return alert('Por favor escribe tu nombre');
-        if (!data.telefono && !data.email) {
-          return alert('Por favor deja tu teléfono (WhatsApp) o tu email');
-        }
-        if (data.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
-          return alert('El email no tiene formato válido');
-        }
-        if (data.telefono && data.telefono.replace(/\D/g, '').length < 10) {
-          return alert('El teléfono debe tener al menos 10 dígitos');
-        }
-        if (!form.querySelector('[name="acepta_privacidad"]').checked) {
-          return alert('Debes aceptar el aviso de privacidad');
-        }
+          const fd = new FormData(form);
+          const data = {
+            nombre: fd.get('nombre')?.trim() || '',
+            telefono: fd.get('telefono')?.trim() || '',
+            email: fd.get('email')?.trim() || '',
+            comentario: fd.get('comentario')?.trim() || '',
+            horario_preferido: fd.get('horario') || '',
+            fecha_envio: new Date().toISOString()
+          };
 
-        try {
-          let respuesta;
+          if (!data.nombre) return alert('Por favor escribe tu nombre');
+          if (!data.telefono && !data.email) return alert('Deja tu teléfono o email');
+          if (data.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) return alert('Email inválido');
+          if (data.telefono && data.telefono.replace(/\D/g, '').length < 10) return alert('Teléfono incompleto');
+          if (!form.querySelector('[name="acepta_privacidad"]').checked) return alert('Acepta el aviso de privacidad');
 
-          if (config.apiUrl) {
-            // Local → MySQL
-            respuesta = await fetch(config.apiUrl, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(data)
-            });
-          } else if (config.key) {
-            // Producción → Supabase
-            respuesta = await fetch(`${config.url}/rest/v1/leads`, {
-              method: 'POST',
-              headers: {
-                'apikey': config.key,
-                'Authorization': `Bearer ${config.key}`,
-                'Content-Type': 'application/json',
-                'Prefer': 'return=minimal'
-              },
-              body: JSON.stringify(data)
-            });
-          } else {
-            throw new Error("No hay configuración de base de datos");
+          try {
+            let res;
+
+            if (isLocal) {
+              console.log("Enviando a MySQL local...");
+              res = await fetch('http://localhost:3000/api/contacto', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+              });
+            } else {
+              if (!SUPABASE_KEY) {
+                alert('Error de configuración. Contacta al administrador.');
+                return;
+              }
+              console.log("Enviando a Supabase...");
+              res = await fetch(`${SUPABASE_URL}/rest/v1/leads`, {
+                method: 'POST',
+                headers: {
+                  'apikey': SUPABASE_KEY,
+                  'Authorization': `Bearer ${SUPABASE_KEY}`,
+                  'Content-Type': 'application/json',
+                  'Prefer': 'return=minimal'
+                },
+                body: JSON.stringify(data)
+              });
+            }
+
+            if (res.ok) {
+              alert('¡Gracias! Te contactaremos muy pronto');
+              form.reset();
+            } else {
+              alert('Error al enviar. Intenta más tarde');
+            }
+          } catch (err) {
+            console.error(err);
+            alert('Error de conexión');
           }
-
-          if (respuesta.ok) {
-            alert('¡Gracias! Tu mensaje ha sido enviado correctamente.');
-            form.reset();
-          } else {
-            const error = await respuesta.text();
-            console.error("Error del servidor:", error);
-            alert('Error al enviar. Intenta más tarde.');
-          }
-        } catch (err) {
-          console.error("Error de conexión:", err);
-          alert('Hubo un problema al enviar. Por favor intenta de nuevo.');
-        }
+        });
       });
-    });
     </script>
 
 
