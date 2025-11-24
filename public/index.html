@@ -592,8 +592,7 @@
           if (isLocal) return null; // usa MySQL local
 
           // En producción: Vercel inyecta la variable → queda oculta
-          const key = window.VITE_SUPABASE_ANON_KEY ||
-                      document.querySelector('meta[name="supabase-anon-key"]')?.content;
+          const key = window.VITE_SUPABASE_ANON_KEY 
 
           if (!key) {
             console.error("Falta la clave anon de Supabase en producción");
