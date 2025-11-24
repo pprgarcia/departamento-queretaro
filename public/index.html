@@ -11,7 +11,6 @@
   <title>Departamento en Venta en Rinconada Pirules 2a Sección, Querétaro - 2 Recámaras</title>
   <meta name="description" content="Departamento en venta en Fraccionamiento Rinconada Pirules 2a Sección, Querétaro. 2 recámaras, cerca del Tec de Monterrey, excelente inversión inmobiliaria. Venta directa sin intermediarios.">
   <meta name="keywords" content="departamento en venta Querétaro, Rinconada Pirules, cerca Tec de Monterrey, inversión inmobiliaria, 2 recámaras, venta directa">
-  <meta name="supabase-anon-key" content="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzIiwicmVmIjoiYXNlendwaXRqcHNvaNOESLACORRECTA">
   
   <!-- SEO OCULTO (para reforzar) -->
     <!-- JSON-LD  -->
@@ -587,20 +586,13 @@
        
         // CLAVE SUPABASE ANÓNIMA ---
         const SUPABASE_KEY = (() => {
+          // LOCAL → MySQL
           const isLocal = ['localhost', '127.0.0.1'].includes(location.hostname) ||
                           ['3000'].includes(location.port);
+          if (isLocal) return null;
 
-          if (isLocal) return null; // usa MySQL local
-
-          // En producción: Vercel inyecta la variable → queda oculta
-          const key = window.VITE_SUPABASE_ANON_KEY ||
-                      document.querySelector('meta[name="supabase-anon-key"]')?.content;
-
-          if (!key) {
-            console.error("Falta la clave anon de Supabase en producción");
-            return null;
-          }
-          return key;
+          // PRODUCCIÓN → clave anon real (pública por diseño)
+          return 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzIiwicmVmIjoiYXNlendwaXRqcHNvaW12ZnV3c2UiLCJyb2xlIjoiYW5vbiIsImlhdCI6MTc2MzIxODYyMiwiZXhwIjoyMDc4Nzk0NjIyfQ.uQ_7fUy_cswe_OzmK1k_--BIO_55Bmy_6McqtgGK0SI';
         })();
 
         const SUPABASE_URL = 'https://asezwpitjpsoimvfuwse.supabase.co';
