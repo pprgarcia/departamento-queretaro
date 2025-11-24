@@ -23,9 +23,6 @@ app.get('/', (req, res) => {
   fs.readFile(filePath, 'utf8', (err, html) => {
     if (err) return res.status(500).send('Error');
 
-    // Reemplazar <%= VARIABLE %> con valor real
-    html = html.replace('<%= process.env.GOOGLE_MAPS_API_KEY %>', process.env.GOOGLE_MAPS_API_KEY || '');
-
     res.send(html);
   });
 });
