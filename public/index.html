@@ -594,8 +594,17 @@
           e.preventDefault();
 
           const fd = new FormData(form);
-          const data = Object.fromEntries(fd.entries());
-          data.fecha_envio = new Date().toISOString();
+
+          // Creamos el objeto manualmente SIN acepta_privacidad
+          const data = {
+            nombre: fd.get('nombre')?.trim() || '',
+            telefono: fd.get('telefono')?.trim() || '',
+            email: fd.get('email')?.trim() || '',
+            comentario: fd.get('comentario')?.trim() || '',
+            
+            horario_preferido: fd.get('horario') || '',
+            fecha_envio: new Date().toISOString()
+          };
 
           // Validaciones (igual que antes)
           if (!data.nombre?.trim()) return alert('Por favor escribe tu nombre');
