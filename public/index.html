@@ -586,16 +586,24 @@
        
         // CLAVE SUPABASE ANÓNIMA ---
         const SUPABASE_KEY = (() => {
-          // LOCAL → MySQL
           const isLocal = ['localhost', '127.0.0.1'].includes(location.hostname) ||
                           ['3000'].includes(location.port);
-          if (isLocal) return null;
 
-          // PRODUCCIÓN → clave anon real (pública por diseño)
-          return 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzIiwicmVmIjoiYXNlendwaXRqcHNvaW12ZnV3c2UiLCJyb2xlIjoiYW5vbiIsImlhdCI6MTc2MzIxODYyMiwiZXhwIjoyMDc4Nzk0NjIyfQ.uQ_7fUy_cswe_OzmK1k_--BIO_55Bmy_6McqtgGK0SI';
+          if (isLocal) return null; // usa MySQL local
+
+          // En producción: Vercel inyecta la variable → queda oculta
+          const key = window.VITE_SUPABASE_ANON_KEY ||
+                      document.querySelector('meta[name="supabase-anon-key"]')?.content;
+
+          if (!key) {
+            console.error("Falta la clave anon de Supabase en producción");
+            return null;
+          }
+          return key;
         })();
 
         const SUPABASE_URL = 'https://asezwpitjpsoimvfuwse.supabase.co';
+
 
 
 
@@ -649,15 +657,19 @@
                 },
                 body: JSON.stringify(data)
               });
-            }
+            } // <-- cierra el else (producción) correctamente
 
-            if (res.ok) {
+            // Manejo de la respuesta fuera del bloque if/else
+            if (res && res.ok) {
               alert('¡Gracias! Te contactaremos muy pronto');
               form.reset();
-            } else {
+            } else if (res) {
               const err = await res.text();
               console.error("Error del servidor:", err);
               alert('Error al enviar. Intenta más tarde.');
+            } else {
+              // Si por alguna razón no hay respuesta
+              throw new Error('No se obtuvo respuesta del servidor');
             }
           } catch (err) {
             console.error("Error de red:", err);
