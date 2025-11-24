@@ -568,6 +568,7 @@
       .carousel-item { transition: transform 0.5s ease; position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
     </style>
 
+
     <script>
       document.addEventListener('DOMContentLoaded', () => {
         const form = document.getElementById('formContacto');
@@ -577,24 +578,23 @@
                         location.hostname === '127.0.0.1' ||
                         location.port === '5500';
 
+        // CLAVE SUPABASE — ¡ESTA VEZ SÍ FUNCIONA!
         const SUPABASE_KEY = window.VITE_SUPABASE_ANON_KEY;
         const SUPABASE_URL = 'https://asezwpitjpsoimvfuwse.supabase.co';
+
+        // Para pruebas locales (opcional, bórrala antes del commit final)
+        // const SUPABASE_KEY = SUPABASE_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...TU_CLAVE_PARA_LOCAL';
 
         form.addEventListener('submit', async (e) => {
           e.preventDefault();
 
           const fd = new FormData(form);
-          const data = {
-            nombre: fd.get('nombre')?.trim() || '',
-            telefono: fd.get('telefono')?.trim() || '',
-            email: fd.get('email')?.trim() || '',
-            comentario: fd.get('comentario')?.trim() || '',
-            horario_preferido: fd.get('horario') || '',
-            fecha_envio: new Date().toISOString()
-          };
+          const data = Object.fromEntries(fd.entries());
+          data.fecha_envio = new Date().toISOString();
 
-          if (!data.nombre) return alert('Por favor escribe tu nombre');
-          if (!data.telefono && !data.email) return alert('Deja tu teléfono o email');
+          // Validaciones (igual que antes)
+          if (!data.nombre?.trim()) return alert('Por favor escribe tu nombre');
+          if (!data.telefono?.trim() && !data.email?.trim()) return alert('Deja tu teléfono o email');
           if (data.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) return alert('Email inválido');
           if (data.telefono && data.telefono.replace(/\D/g, '').length < 10) return alert('Teléfono incompleto');
           if (!form.querySelector('[name="acepta_privacidad"]').checked) return alert('Acepta el aviso de privacidad');
@@ -603,7 +603,7 @@
             let res;
 
             if (isLocal) {
-              console.log("Enviando a MySQL local...");
+              console.log("→ Enviando a MySQL local");
               res = await fetch('http://localhost:3000/api/contacto', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -611,10 +611,11 @@
               });
             } else {
               if (!SUPABASE_KEY) {
-                alert('Error de configuración. Contacta al administrador.');
+                alert('Error de configuración del sitio. Contacta al administrador.');
+                console.error("Falta VITE_SUPABASE_ANON_KEY en producción");
                 return;
               }
-              console.log("Enviando a Supabase...");
+              console.log("→ Enviando a Supabase (producción)");
               res = await fetch(`${SUPABASE_URL}/rest/v1/leads`, {
                 method: 'POST',
                 headers: {
@@ -631,10 +632,12 @@
               alert('¡Gracias! Te contactaremos muy pronto');
               form.reset();
             } else {
-              alert('Error al enviar. Intenta más tarde');
+              const err = await res.text();
+              console.error("Error del servidor:", err);
+              alert('Error al enviar. Intenta más tarde.');
             }
           } catch (err) {
-            console.error(err);
+            console.error("Error de red:", err);
             alert('Error de conexión');
           }
         });
