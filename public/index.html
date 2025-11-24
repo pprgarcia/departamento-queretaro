@@ -578,8 +578,15 @@
                         location.hostname === '127.0.0.1' ||
                         location.port === '5500';
 
-        // CLAVE SUPABASE — ¡ESTA VEZ SÍ FUNCIONA!
-        const SUPABASE_KEY = window.VITE_SUPABASE_ANON_KEY;
+        // CLAVE SUPABASE – SOLUCIÓN DEFINITIVA Y SEGURA
+          const SUPABASE_KEY = (function() {
+            // 1. En local: no usamos Supabase → devolvemos null
+            if (location.hostname === 'localhost' || location.hostname === '127.0.0.1' || location.port === '3000') {
+              return null;
+            }
+            // 2. En producción: clave REAL (tú la pones aquí una sola vez)
+            return 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFzZXp3cGl0anBzb2ltdmZ1d3NlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMyMTg2MjIsImV4cCI6MjA3ODc5NDYyMn0.uQ_7fUy_cswe_OzmK1k_--BIO_55Bmy_6McqtgGK0SI';
+          })();
         const SUPABASE_URL = 'https://asezwpitjpsoimvfuwse.supabase.co';
 
         // Para pruebas locales (opcional, bórrala antes del commit final)
