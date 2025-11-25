@@ -56,10 +56,12 @@ Created from scratch as a real-world exercise in full-stack development, respons
 git clone https://github.com/pprgarcia/departamento-queretaro.git
 cd departamento-queretaro
 # Open public/index.html with Live Server or directly in the browser
+```
+
 The contact form only works in production (Vercel) because the Supabase key is injected as an environment variable.
 Locally you will see a controlled error message – this is normal and secure.
-Future Ideas
 
+Future Ideas:
 Direct WhatsApp button from the form
 360° virtual tour
 Email/SMS notifications on new leads
@@ -67,4 +69,4 @@ Email/SMS notifications on new leads
 Author
 José Rodríguez García
 Full-Stack Developer • Querétaro, México
-pprgarcia.jr@gmail.com
+<pprgarcia.jr@gmail.com>

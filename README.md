@@ -57,11 +57,12 @@ Construido desde cero como ejercicio real de desarrollo full-stack, diseño resp
 git clone https://github.com/pprgarcia/departamento-queretaro.git
 cd departamento-queretaro
 # Abre public/index.html con Live Server o directamente
+```
+
 El formulario solo funciona en producción (Vercel) porque la anon key de Supabase se inyecta como variable de entorno.
 En local mostrará un mensaje de error controlado (es normal y seguro).
 
-Próximos pasos (ideas futuras)
-
+Próximos pasos (ideas futuras):
 Botón directo a WhatsApp
 Tour virtual 360°
 Notificaciones automáticas al recibir leads
@@ -69,4 +70,4 @@ Notificaciones automáticas al recibir leads
 Autor
 José Rodríguez García
 Desarrollador full-stack • Querétaro, México
-pprgarcia.jr@gmail.com
+<pprgarcia.jr@gmail.com>
