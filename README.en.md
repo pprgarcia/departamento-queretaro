@@ -62,11 +62,12 @@ The contact form only works in production (Vercel) because the Supabase key is i
 Locally you will see a controlled error message – this is normal and secure.
 
 Future Ideas:
-Direct WhatsApp button from the form
-360° virtual tour
-Email/SMS notifications on new leads
 
-Author
-José Rodríguez García
-Full-Stack Developer • Querétaro, México
+- Direct WhatsApp button from the form
+- 360° virtual tour
+- Email/SMS notifications on new leads
+
+Author: José Rodríguez García
+Full-Stack Developer
+• Querétaro, México
 <pprgarcia.jr@gmail.com>

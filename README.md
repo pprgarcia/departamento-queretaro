@@ -63,11 +63,12 @@ El formulario solo funciona en producción (Vercel) porque la anon key de Supaba
 En local mostrará un mensaje de error controlado (es normal y seguro).
 
 Próximos pasos (ideas futuras):
-Botón directo a WhatsApp
-Tour virtual 360°
-Notificaciones automáticas al recibir leads
 
-Autor
-José Rodríguez García
-Desarrollador full-stack • Querétaro, México
+- Botón directo a WhatsApp
+- Tour virtual 360°
+- Notificaciones automáticas al recibir leads
+
+Autor: José Rodríguez García
+Desarrollador full-stack
+• Querétaro, México
 <pprgarcia.jr@gmail.com>
