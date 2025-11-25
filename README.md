@@ -69,6 +69,9 @@ Próximos pasos (ideas futuras):
 - Notificaciones automáticas al recibir leads
 
 Autor: José Rodríguez García
+
 Desarrollador full-stack
+
 • Querétaro, México
+
 <pprgarcia.jr@gmail.com>

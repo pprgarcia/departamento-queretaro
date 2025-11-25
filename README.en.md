@@ -68,6 +68,9 @@ Future Ideas:
 - Email/SMS notifications on new leads
 
 Author: José Rodríguez García
+
 Full-Stack Developer
+
 • Querétaro, México
+
 <pprgarcia.jr@gmail.com>
