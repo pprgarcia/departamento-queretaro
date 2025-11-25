@@ -1,11 +1,11 @@
 # Departamento en Venta – Querétaro (Rinconada Pirules 2a Sección)
 
-Proyecto personal full-stack | HTML • TailwindCSS • JavaScript • Supabase • Vercel
+**Proyecto personal full-stack** • HTML • TailwindCSS • JavaScript • Supabase • Vercel • Leaflet
 
-¡Bienvenido al código fuente de mi página web para la venta de mi departamento en Querétaro!  
-Este proyecto lo construí desde cero como ejercicio real de desarrollo full-stack, diseño responsive, SEO, seguridad y cumplimiento legal (LFPDPPP).
+¡Bienvenido al código fuente de mi página web para vender mi departamento en Querétaro!  
+Construido desde cero como ejercicio real de desarrollo full-stack, diseño responsive, SEO, seguridad y cumplimiento legal (LFPDPPP).
 
-**Link en vivo:** <https://departamento-queretaro.vercel.app>  
+**Link en vivo:** <https://departamento-queretaro.vercel.app>
 
 ## Características principales
 
@@ -13,35 +13,37 @@ Este proyecto lo construí desde cero como ejercicio real de desarrollo full-sta
 - Galería de fotos con lightbox
 - Mapa interactivo con **Leaflet + OpenStreetMap** (sin costo de API)
 - Formulario de contacto con almacenamiento seguro en Supabase
-- Aviso de privacidad completo y cumpliendo LFPDPPP (modal elegante)
-- Panel de administración privado con:
-  - Casillas “contactado” y “borrar seleccionados”
-  - Exportación a Excel
-  - Protección por contraseña + archivo oculto
-- SEO avanzado (meta tags, JSON-LD inmobiliario, palabras clave ocultas)
-- Seguridad total:
-  - Ninguna clave en el código fuente
-  - Variables de entorno en Vercel
-  - .env eliminado del historial de Git
-  - Admin secreto fuera del repositorio público
+- Aviso de privacidad completo y conforme a la **LFPDPPP** (modal elegante)
+- Panel de administración privado y oculto:
+  - Casillas “contactado” y borrado múltiple
+  - Exportación a Excel con un clic
+  - Protección por contraseña + URL secreta (no está en el repositorio)
+
+## Seguridad aplicada
+
+- La **anon key** de Supabase está inyectada directamente como variable de entorno en Vercel  
+  → En producción funciona perfecto  
+  → En local muestra un mensaje controlado de error (comportamiento esperado)
+- Archivo `.env` eliminado del historial de Git (nunca estuvo en producción)
+- Panel de administración completamente oculto del repositorio público
 
 ## Tecnologías usadas
 
-| Tecnología          | Uso                                      |
-|---------------------|------------------------------------------|
-| HTML5 + TailwindCSS | Maquetación y diseño moderno            |
-| JavaScript (ES6+)   | Lógica del formulario, modal, admin     |
-| Supabase            | Base de datos de leads (PostgreSQL)     |
-| Vercel              | Hosting gratuito y despliegue continuo  |
-| Leaflet + OSM       | Mapa interactivo gratuito               |
+| Tecnología           | Uso                                          |
+|----------------------|----------------------------------------------|
+| HTML5 + TailwindCSS  | Maquetación y diseño moderno                 |
+| JavaScript (ES6+)    | Carrusel, menú móvil, lightbox, formulario   |
+| Supabase             | Base de datos de leads (PostgreSQL en la nube) |
+| Vercel               | Hosting + despliegue continuo + variables de entorno |
+| Leaflet + OSM        | Mapa interactivo gratuito                    |
 
 ## Panel de administración (privado)
 
-- URL secreta (solo yo la conozco)
+- URL secreta (solo el propietario la conoce)
 - Login con contraseña fuerte
 - Tabla completa de leads con casillas “contactado”
-- Borrar leads individuales o seleccionados
-- Exportar a Excel con un clic
+- Borrado individual o múltiple
+- Exportación directa a Excel
 
 ## Cumplimiento legal
 
@@ -54,13 +56,17 @@ Este proyecto lo construí desde cero como ejercicio real de desarrollo full-sta
 ```bash
 git clone https://github.com/pprgarcia/departamento-queretaro.git
 cd departamento-queretaro
-# Abre public/index.html en tu navegador
+# Abre public/index.html con Live Server o directamente
+El formulario solo funciona en producción (Vercel) porque la anon key de Supabase se inyecta como variable de entorno.
+En local mostrará un mensaje de error controlado (es normal y seguro).
 
+Próximos pasos (ideas futuras)
 
-El formulario solo funciona en producción (Vercel) porque la clave de Supabase está protegida como variable de entorno.
-
+Botón directo a WhatsApp
+Tour virtual 360°
+Notificaciones automáticas al recibir leads
 
 Autor
 José Rodríguez García
-Querétaro, México
+Desarrollador full-stack • Querétaro, México
 pprgarcia.jr@gmail.com
