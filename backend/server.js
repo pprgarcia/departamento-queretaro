@@ -113,6 +113,12 @@ app.delete("/api/leads/:id", async (req, res) => {
 
 // Iniciar servidor
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`🚀 Servidor funcionando en http://localhost:${PORT}`);
-});
+// Solo ejecutamos listen si NO estamos en Vercel
+if (process.env.NODE_ENV !== "production") {
+  app.listen(PORT, () => {
+    console.log(`🚀 Servidor local en http://localhost:${PORT}`);
+  });
+}
+
+// ESTA LÍNEA ES VITAL PARA VERCEL:
+module.exports = app;
