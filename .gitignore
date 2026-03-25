@@ -15,3 +15,4 @@ backend/node_modules/
 # Solo permitir los dos archivos públicos que SÍ queremos en GitHub
 !public/index.html
 !public/galeria.html
+!public/mi-admin-secreto-2025-x7k9p2m.html
