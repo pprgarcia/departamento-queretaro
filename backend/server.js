@@ -10,12 +10,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Conexión a Supabase (Transaction Pooler)
+console.log("Servidor iniciando...");
+
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: {
-    rejectUnauthorized: false, // Vital para evitar errores de certificado en Windows
+    rejectUnauthorized: false, // <--- INDISPENSABLE para Vercel
   },
+  connectionTimeoutMillis: 10000, // 10 segundos de espera máximo
 });
 
 // Servir archivos estáticos del frontend
@@ -55,19 +57,28 @@ app.post("/api/contacto", async (req, res) => {
 // Ejemplo: http://localhost:3000/api/leads?key=TU_CLAVE_DEL_ENV
 app.get("/api/leads", async (req, res) => {
   const { key } = req.query;
+  console.log("Petición recibida en /api/leads con key:", key);
+
   if (key !== process.env.ADMIN_KEY) {
+    console.error("Error: Clave de admin no coincide");
     return res.status(401).json({ error: "No autorizado" });
   }
 
   try {
-    // Cambiamos created_at por fecha_envio
+    console.log("Intentando conectar a la base de datos...");
     const result = await pool.query(
       "SELECT * FROM leads ORDER BY fecha_envio DESC",
     );
+    console.log("Consulta exitosa, enviando datos...");
     res.json(result.rows);
   } catch (err) {
-    console.error("Error:", err);
-    res.status(500).json({ error: "Error al obtener datos" });
+    console.error("ERROR CRÍTICO EN DB:", err.message);
+    res
+      .status(500)
+      .json({
+        error: "Error de conexión a la base de datos",
+        details: err.message,
+      });
   }
 });
 
