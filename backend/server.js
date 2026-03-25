@@ -71,6 +71,46 @@ app.get("/api/leads", async (req, res) => {
   }
 });
 
+// NUEVA RUTA: Actualizar estado de contacto
+app.patch("/api/leads/:id", async (req, res) => {
+  const { key } = req.query;
+  const { id } = req.params;
+  const { contactado } = req.body;
+
+  if (key !== process.env.ADMIN_KEY) {
+    return res.status(401).json({ error: "No autorizado" });
+  }
+
+  try {
+    await pool.query("UPDATE leads SET contactado = $1 WHERE id = $2", [
+      contactado,
+      id,
+    ]);
+    res.json({ mensaje: "Estado actualizado" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Error al actualizar" });
+  }
+});
+
+// NUEVA RUTA: Borrar un lead
+app.delete("/api/leads/:id", async (req, res) => {
+  const { key } = req.query;
+  const { id } = req.params;
+
+  if (key !== process.env.ADMIN_KEY) {
+    return res.status(401).json({ error: "No autorizado" });
+  }
+
+  try {
+    await pool.query("DELETE FROM leads WHERE id = $1", [id]);
+    res.json({ mensaje: "Lead borrado correctamente" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Error al borrar" });
+  }
+});
+
 // Iniciar servidor
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
